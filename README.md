@@ -16,6 +16,8 @@ Full-stack app built in:
 
 `pip install "uvicorn[standard]"`
 
+`pip install pymysql`
+
 `uvicorn main:app --reload`
 
 
