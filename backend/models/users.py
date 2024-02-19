@@ -1,36 +1,29 @@
 from schemas.User import User, UserCreate
-
-users_db = [
-    {
-        "id": 1,
-        "username": "John Doe",
-        "email": "john@gmail.com",
-        "password": "password"
-    },
-    {
-        "id": 2,
-        "username": "Jane Doe",
-        "email": "jane@gmail.com",
-        "password": "password"
-    }
-]
-
+from utils.db import connect
 
 class Users:
-
     @staticmethod
     async def all():
-        return [User.parse_obj(user) for user in users_db]
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT * FROM users')
+                result = cursor.fetchall()
+                return result
 
     @staticmethod
     async def get(id: int):
-        filtered_users = list(filter(lambda user: user["id"] == id, users_db))
-        return filtered_users[0] if filtered_users else None
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT * FROM users WHERE id = %s', (id,))
+                result = cursor.fetchone()
+                return result
 
     @staticmethod
     async def create(data: UserCreate):
-        new_user = User(**data.dict())
-        max_id = max([user["id"] for user in users_db])
-        new_user.id = max_id + 1
-        users_db.append(new_user.model_dump())
-        return new_user
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute('INSERT INTO users (username, email, password) VALUES (%s, %s, %s)',
+                               (data.username, data.email, data.password))
+                connection.commit()
+                user_id = cursor.lastrowid
+                return await Users.get(user_id)
