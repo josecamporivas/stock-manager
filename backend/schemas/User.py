@@ -9,4 +9,4 @@ class UserCreate(BaseModel):
 
 class User(UserCreate):
     id: int = None
-
+    disabled: bool = None
