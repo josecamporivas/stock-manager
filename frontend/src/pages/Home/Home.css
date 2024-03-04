@@ -1,0 +1,18 @@
+.title-home{
+    font-family: "Keep calm", sans-serif;
+    font-size: 3rem;
+}
+
+.title-functionality{
+    margin-bottom: 0;
+}
+
+.subtitle-home{
+    color: rgb(48, 48, 48);
+    text-wrap: balance;
+    margin-bottom: 50px;
+}
+
+.question-title-home{
+    font-size: 2rem;
+}
