@@ -6,7 +6,8 @@ USE `stock_manager`;
 
 -- Table structure for table `USERS`
 CREATE TABLE `users` (
-  `dni` varchar(9) NOT NULL PRIMARY KEY,
+  `id` int unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `dni` varchar(9) NOT NULL UNIQUE,
   `username` varchar(50) NOT NULL UNIQUE,
   `password` varchar(150) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -20,7 +21,7 @@ CREATE TABLE `users` (
 CREATE TABLE `units_measures` (
   `id` int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `abbreviation` varchar(20) NOT NULL,
-  `full_name` varchar(50) NOT NULL,
+  `full_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Table structure for table `PRODUCTS`

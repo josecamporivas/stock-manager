@@ -31,8 +31,8 @@ class Users:
     async def create(data: UserCreate):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('INSERT INTO users (username, email, password) VALUES (%s, %s, %s)',
-                               (data.username, data.email, get_password_hash(data.password)))
+                cursor.execute('INSERT INTO users (dni, username, password, name, surname, email, role) VALUES (%s, %s, %s, %s, %s, %s, %s)',
+                               (data.dni, data.username, get_password_hash(data.password), data.name, data.surname, data.email, data.role))
                 connection.commit()
                 user_id = cursor.lastrowid
                 return await Users.get(user_id)
