@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
 class UnitMeasure(BaseModel):
-    id: int
+    unit_meassure_id: int
     abbreviation: str
     full_name: str

@@ -10,6 +10,6 @@ class UserCreate(BaseModel):
     role: str
 
 class User(UserCreate):
-    id: int
-    disabled: bool = None
+    user_id: int
+    disabled: bool
 

@@ -10,5 +10,5 @@ class ProductCreate(BaseModel):
     unit_limit: int
 
 class Product(ProductCreate):
-    id: int
-    disabled: bool = None
+    product_id: int
+    disabled: bool

@@ -1,13 +1,10 @@
 from pydantic import BaseModel
 
 class BuyCreate(BaseModel):
-    amount: int
-    price: float
-    product_id: int
-    user_dni: str
+    user_id: int
     supplier_id: int
 
 class Buy(BuyCreate):
-    id: int
+    buy_id: int
     date: str
-    disabled: bool = None
+    disabled: bool

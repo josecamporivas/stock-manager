@@ -5,5 +5,6 @@ class NotificationCreate(BaseModel):
     product_id: int
 
 class Notification(NotificationCreate):
-    id: int
+    notification_id: int
     date: str
+    user_id: int | None

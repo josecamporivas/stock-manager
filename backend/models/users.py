@@ -19,7 +19,7 @@ class Users:
     async def get(id_user: int):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT * FROM users WHERE id = %s AND disabled=0', (id_user,))
+                cursor.execute('SELECT * FROM users WHERE user_id = %s AND disabled=0', (id_user,))
                 result = cursor.fetchone()
                 return result
 
