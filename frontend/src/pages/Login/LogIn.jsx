@@ -1,6 +1,6 @@
 import { Box, Button, Container, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import "./LogIn.css"
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { KeyboardReturn, Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import getToken from "../../utils/queries/logIn";
 import { useNavigate } from "react-router-dom";
@@ -24,11 +24,11 @@ export default function LogIn() {
         if(result.error) {
             console.log(result.error)
             //TODO : Mostrar mensaje de error
-        }
 
+            return
+        }
         sessionStorage.setItem('token', result.access_token)
         return navigate('/dashboard')
-
 
     }
 
