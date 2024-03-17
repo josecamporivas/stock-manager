@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 class BuyCreate(BaseModel):
@@ -6,5 +8,5 @@ class BuyCreate(BaseModel):
 
 class Buy(BuyCreate):
     buy_id: int
-    date: str
+    date: datetime
     disabled: bool
