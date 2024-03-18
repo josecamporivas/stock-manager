@@ -18,8 +18,8 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Table structure for table `UNITS MEASURES`
-CREATE TABLE `units_measures` (
-  `unit_meassure_id` int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE `unit_measures` (
+  `unit_measure_id` int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `abbreviation` varchar(20) NOT NULL,
   `full_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -35,7 +35,7 @@ CREATE TABLE `products` (
   `unit_measure_id` int unsigned NOT NULL,
   `unit_limit` smallint unsigned NOT NULL,
   `disabled` tinyint(1) NOT NULL DEFAULT 0,
-  FOREIGN KEY (`unit_measure_id`) REFERENCES `units_measures`(`unit_meassure_id`)
+  FOREIGN KEY (`unit_measure_id`) REFERENCES `unit_measures`(`unit_measure_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Table structure for table `CLIENTS`
