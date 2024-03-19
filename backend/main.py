@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes import users_router, buys_router, products_router, supplier_router
+from routes import users_router, buys_router, products_router, supplier_router, invoices_router, clients_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -15,6 +15,8 @@ app.include_router(users_router.router)
 app.include_router(buys_router.router)
 app.include_router(products_router.router)
 app.include_router(supplier_router.router)
+app.include_router(invoices_router.router)
+app.include_router(clients_router.router)
 
 
 @app.get("/")
