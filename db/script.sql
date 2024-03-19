@@ -31,7 +31,7 @@ CREATE TABLE `products` (
   `description` varchar(255) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `cost` decimal(10,2) NOT NULL,
-  `stock` int unsigned NOT NULL,
+  `stock` decimal(15,3) NOT NULL,
   `unit_measure_id` int unsigned NOT NULL,
   `unit_limit` smallint unsigned NOT NULL,
   `disabled` tinyint(1) NOT NULL DEFAULT 0,
@@ -61,7 +61,7 @@ CREATE TABLE `invoices` (
 CREATE TABLE `invoice_lines` (
   `invoice_id` int unsigned NOT NULL,
   `line_number` int unsigned NOT NULL,
-  `amount` int unsigned NOT NULL,
+  `amount` decimal(15,3) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `product_id` int unsigned NOT NULL,
   PRIMARY KEY (`invoice_id`, `line_number`),
@@ -113,8 +113,12 @@ CREATE TABLE `buy_contains_product` (
   `buy_id` int unsigned NOT NULL,
   `product_id` int unsigned NOT NULL,
   `cost` decimal(10,2) NOT NULL,
-  `amount` int unsigned NOT NULL,
+  `amount` decimal(15,3) NOT NULL,
   PRIMARY KEY (`buy_id`, `product_id`),
   FOREIGN KEY (`buy_id`) REFERENCES `buys`(`buy_id`),
   FOREIGN KEY (`product_id`) REFERENCES `products`(`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Create user to manage the database
+CREATE USER 'manager'@'localhost' IDENTIFIED BY 'password_manager';
+GRANT ALL ON `stock_manager`.* TO 'manager'@'localhost' WITH GRANT OPTION;
