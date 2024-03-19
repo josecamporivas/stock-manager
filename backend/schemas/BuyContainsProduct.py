@@ -3,7 +3,7 @@ from pydantic import BaseModel
 class BuyContainsProductCreate(BaseModel):
     product_id: int
     cost: float
-    amount: int
+    amount: float
 
 class BuyContainsProduct(BuyContainsProductCreate):
     buy_id: int

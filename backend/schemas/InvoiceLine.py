@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 class InvoiceLineCreate(BaseModel):
-    amount: int
+    amount: float
     price: float
     product_id: int
 

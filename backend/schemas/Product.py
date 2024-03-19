@@ -5,7 +5,7 @@ class ProductCreate(BaseModel):
     description: str
     price: float
     cost: float
-    stock: int
+    stock: float
     unit_measure_id: int
     unit_limit: int
 
