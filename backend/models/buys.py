@@ -10,7 +10,7 @@ class Buys:
     async def all(page: int, size: int):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT buy_id FROM buys LIMIT %s OFFSET %s', (size, (page - 1) * size))
+                cursor.execute('SELECT buy_id FROM buys WHERE disabled=0 LIMIT %s OFFSET %s', (size, (page - 1) * size))
                 results = cursor.fetchall()
 
                 buys = []
@@ -70,7 +70,7 @@ class Buys:
                     cursor.execute('SELECT amount FROM buy_contains_product WHERE buy_id = %s AND product_id = %s',
                                    (id_buy, product.product_id))
 
-                    amount = cursor.fetchone()['amount']
+                    amount = float(cursor.fetchone()['amount'])
                     cursor.execute(
                         'UPDATE buy_contains_product SET cost = %s, amount = %s WHERE buy_id = %s AND product_id = %s',
                         (product.cost, product.amount, id_buy, product.product_id))
