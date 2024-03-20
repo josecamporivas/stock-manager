@@ -10,13 +10,18 @@ class Buys:
     async def all(page: int, size: int):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT buy_id FROM buys WHERE disabled=0 LIMIT %s OFFSET %s', (size, (page - 1) * size))
+                cursor.execute('SELECT buy_id, user_id, supplier_id FROM buys WHERE disabled=0 ORDER BY date DESC LIMIT %s OFFSET %s', (size, (page - 1) * size))
                 results = cursor.fetchall()
 
                 buys = []
                 for result in results:
-                    buys.append(await Buys.get(result['buy_id']))
+                    buy_info = await Buys.get(result['buy_id'])
+                    cursor.execute('SELECT username FROM users WHERE user_id = %s', (result['user_id'],))
+                    buy_info['buy']['user_name'] = cursor.fetchone()['username']
+                    cursor.execute('SELECT name FROM suppliers WHERE supplier_id = %s', (result['supplier_id'],))
+                    buy_info['buy']['supplier_name'] = cursor.fetchone()['name']
 
+                    buys.append(buy_info)
                 return buys
 
     @staticmethod
@@ -31,8 +36,10 @@ class Buys:
                 result['products'] = []
                 for product in products:
                     product_info = {'cost': product['cost'], 'amount': product['amount']}
-                    cursor.execute('SELECT * FROM products WHERE product_id = %s', (product['product_id'],))
+                    cursor.execute('SELECT *  FROM products WHERE product_id = %s', (product['product_id'],))
                     product_info['product'] = cursor.fetchone()
+                    cursor.execute('SELECT abbreviation FROM unit_measures WHERE unit_measure_id = %s', (product_info['product']['unit_measure_id'],))
+                    product_info['product']['unit_measure_abbreviation'] = cursor.fetchone()['abbreviation']
                     result['products'].append(product_info)
                 return result
 
