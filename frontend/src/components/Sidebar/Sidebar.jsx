@@ -63,11 +63,11 @@ export default function Sidebar() {
     );
   
     return (
-        <div>
-            <Drawer open={open} onClose={toggleDrawer(false)}>
+        <>
+            <Drawer open={open} onClose={toggleDrawer(false)} >
                 {DrawerList}
             </Drawer>
             <Button onClick={toggleDrawer(true)}><MenuIcon /></Button>
-        </div>
+        </>
     );
 }
