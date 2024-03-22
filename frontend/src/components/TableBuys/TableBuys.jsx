@@ -13,6 +13,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useState } from 'react';
 
+import { format } from '../../utils/dates/dateFormatter'
 
 function Row({buy, products}) {
   const [open, setOpen] = useState(false);
@@ -31,13 +32,13 @@ function Row({buy, products}) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {buy.date}
+        <TableCell component="th" scope="row" align='center'>
+          {format(buy.date)}
         </TableCell>
-        <TableCell align="right">{products.length}</TableCell>
-        <TableCell align="right">{buy.supplier_name}</TableCell>
-        <TableCell align="right">{buy.user_name}</TableCell>
-        <TableCell align="right">{total_cost}</TableCell>
+        <TableCell align="center">{products.length}</TableCell>
+        <TableCell align="center">{buy.supplier_name}</TableCell>
+        <TableCell align="center">{buy.user_name}</TableCell>
+        <TableCell align="center">{total_cost} €</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -85,11 +86,11 @@ export default function TableBuys({buys}) {
             <TableHead>
             <TableRow sx={{backgroundColor: '#DDD'}}>
                 <TableCell />
-                <TableCell sx={{maxWidth: '150px'}}>Ventas<br/>(orden por fecha)</TableCell>
-                <TableCell align="right">Número de productos</TableCell>
-                <TableCell align="right">Proveedor</TableCell>
-                <TableCell align="right">Gestor de compra</TableCell>
-                <TableCell align="right">Total de compra</TableCell>
+                <TableCell sx={{maxWidth: '150px'}} align='center'>Ventas<br/>(orden por fecha)</TableCell>
+                <TableCell align="center">Número de productos</TableCell>
+                <TableCell align="center">Proveedor</TableCell>
+                <TableCell align="center">Gestor de compra</TableCell>
+                <TableCell align="center">Total de compra</TableCell>
             </TableRow>
             </TableHead>
             <TableBody>
