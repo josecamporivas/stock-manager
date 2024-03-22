@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import getAllBuys from "../../utils/queries/buys";
 import TableBuys from "../../components/TableBuys/TableBuys";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import ModalCreateBuy from "../../components/ModalCreateBuy/ModalCreateBuy";
 
 export default function Buys() {
     const navigate = useNavigate()
@@ -36,6 +37,7 @@ export default function Buys() {
             <Container maxWidth="md">
                 <Box sx={{textAlign: "center"}}>
                     <h1 className="title-login color-primary">COMPRAS</h1>
+                    <ModalCreateBuy styleContainer={{marginBottom: 10}}/>
                 </Box>
                 <Box>
                     <TableBuys buys={buys} />
