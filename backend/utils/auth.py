@@ -14,7 +14,7 @@ from utils.db import connect
 # openssl rand -hex 32
 SECRET_KEY = "5c81edf1737e29bf36c9455062e894920ddc7760a229120417bf7ef94843c7c6"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 120  # minutes
+ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # minutes (one day)
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/users/token")
 
