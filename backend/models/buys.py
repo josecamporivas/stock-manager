@@ -15,13 +15,7 @@ class Buys:
 
                 buys = []
                 for result in results:
-                    buy_info = await Buys.get(result['buy_id'])
-                    cursor.execute('SELECT username FROM users WHERE user_id = %s', (result['user_id'],))
-                    buy_info['buy']['user_name'] = cursor.fetchone()['username']
-                    cursor.execute('SELECT name FROM suppliers WHERE supplier_id = %s', (result['supplier_id'],))
-                    buy_info['buy']['supplier_name'] = cursor.fetchone()['name']
-
-                    buys.append(buy_info)
+                    buys.append(await Buys.get(result['buy_id']))
                 return buys
 
     @staticmethod
@@ -31,6 +25,10 @@ class Buys:
                 result = {}
                 cursor.execute('SELECT * FROM buys WHERE buy_id = %s', (id_buy,))
                 result['buy'] = cursor.fetchone()
+                cursor.execute('SELECT username FROM users WHERE user_id = %s', (result['buy']['user_id'],))
+                result['buy']['user_name'] = cursor.fetchone()['username']
+                cursor.execute('SELECT name FROM suppliers WHERE supplier_id = %s', (result['buy']['supplier_id'],))
+                result['buy']['supplier_name'] = cursor.fetchone()['name']
                 cursor.execute('SELECT * FROM buy_contains_product WHERE buy_id = %s', (id_buy,))
                 products = cursor.fetchall()
                 result['products'] = []
