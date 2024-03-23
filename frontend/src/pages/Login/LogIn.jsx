@@ -1,8 +1,8 @@
 import { Box, Button, Container, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import "./LogIn.css"
-import { KeyboardReturn, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
-import getToken from "../../utils/queries/logIn";
+import { getToken } from "../../utils/queries/logIn";
 import { useNavigate } from "react-router-dom";
 
 export default function LogIn() {

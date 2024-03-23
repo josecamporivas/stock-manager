@@ -1,4 +1,4 @@
-export default async function getToken({username, password}) {
+export async function getToken({username, password}) {
     const form = new FormData();
     form.append("username", username);
     form.append("password", password);
