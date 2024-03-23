@@ -10,6 +10,10 @@ router = APIRouter(prefix="/products", tags=["products"])
 async def get_all(page: int = 1, size: int = 10):
     return await Products.all(page, size)
 
+@router.get("/id-name-cost")
+async def get_id_name():
+    return await Products.get_id_name_cost()
+
 @router.get("/unit-measures")
 async def get_unit_measures():
     return await Products.get_unit_measures()
