@@ -1,24 +1,17 @@
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { useState } from 'react';
+import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Paper } from '@mui/material';
 
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import { useState } from 'react';
 import { format } from '../../utils/dates/dateFormatter'
 
-function Row({buy, products}) {
+function Row({buy, products, handleDelete}) {
   const [open, setOpen] = useState(false);
 
-  const total_cost = products.reduce((acc, product) => acc + product.cost  *product.amount, 0)
+  const total_cost = products.reduce((acc, product) => acc + product.cost * product.amount, 0)
 
   return (
     <>
@@ -39,6 +32,12 @@ function Row({buy, products}) {
         <TableCell align="center">{buy.supplier_name}</TableCell>
         <TableCell align="center">{buy.user_name}</TableCell>
         <TableCell align="center">{total_cost} €</TableCell>
+        <TableCell align="center">
+          <Box sx={{display: 'flex', justifyContent: 'center'}}>
+            <IconButton color='primary' ><EditIcon /></IconButton> {/* TODO: add functionality to update buys info */}
+            <IconButton color='error' onClick={handleDelete(buy.buy_id)}><DeleteIcon /></IconButton>
+          </Box> 
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -79,23 +78,25 @@ function Row({buy, products}) {
   );
 }
 
-export default function TableBuys({buys}) {
+export default function TableBuys({buys, handleDelete}) {
+
     return (
         <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
             <TableHead>
-            <TableRow sx={{backgroundColor: '#DDD'}}>
-                <TableCell />
-                <TableCell sx={{maxWidth: '150px'}} align='center'>Ventas<br/>(orden por fecha)</TableCell>
-                <TableCell align="center">Número de productos</TableCell>
-                <TableCell align="center">Proveedor</TableCell>
-                <TableCell align="center">Gestor de compra</TableCell>
-                <TableCell align="center">Total de compra</TableCell>
-            </TableRow>
+              <TableRow sx={{backgroundColor: '#DDD'}}>
+                  <TableCell />
+                  <TableCell sx={{maxWidth: '150px'}} align='center'>Ventas<br/>(orden por fecha)</TableCell>
+                  <TableCell align="center">Número de productos</TableCell>
+                  <TableCell align="center">Proveedor</TableCell>
+                  <TableCell align="center">Gestor de compra</TableCell>
+                  <TableCell align="center">Total de compra</TableCell>
+                  <TableCell align="center">Acciones</TableCell>
+              </TableRow>
             </TableHead>
             <TableBody>
             {buys.map(({buy, products}) => (
-                <Row key={buy.buy_id} buy={buy} products={products} />
+                <Row key={buy.buy_id} buy={buy} products={products} handleDelete={handleDelete} />
             ))}
             </TableBody>
         </Table>

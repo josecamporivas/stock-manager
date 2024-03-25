@@ -57,3 +57,18 @@ export async function createBuy({supplier_id, listProducts}) {
     const data = await response.json()
     return data
 }
+
+export async function deleteBuy(buy_id) {
+    const response = await fetch(`http://localhost:8000/buys/${buy_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if(!response.ok){
+        return {error: response.statusText}
+    }
+
+    return {}
+}

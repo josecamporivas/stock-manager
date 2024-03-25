@@ -1,7 +1,7 @@
 import { Box, Button, Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllBuys } from "../../utils/queries/buys";
+import { deleteBuy, getAllBuys } from "../../utils/queries/buys";
 import TableBuys from "../../components/TableBuys/TableBuys";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ModalCreateBuy from "../../components/ModalCreateBuy/ModalCreateBuy";
@@ -36,7 +36,6 @@ export default function Buys() {
         setPage(page + 1)
     }
 
-
     useEffect(() => {
         const token = sessionStorage.getItem("token")
         if(!token) {
@@ -47,6 +46,16 @@ export default function Buys() {
         return
     }, [])
 
+    const handleDelete = (buy_id) => async () => {
+        const data = await deleteBuy(buy_id)
+        if(data.error) {
+            //TODO: handle error
+            return
+        }
+        const newBuys = [...buys.filter(buy => buy.buy.buy_id !== buy_id)]
+        setBuys(newBuys)
+    }
+
     return (
         <>
             <Sidebar />
@@ -56,7 +65,7 @@ export default function Buys() {
                     <ModalCreateBuy styleContainer={{marginBottom: 10}} setBuys={setBuys} />
                 </Box>
                 <Box sx={{marginBottom: 1}}>
-                    <TableBuys buys={buys} />
+                    <TableBuys buys={buys} setBuys={setBuys} handleDelete={handleDelete}/>
                 </Box>
                 <Box sx={{textAlign: "center", marginBottom: 3}} visibility={verMasVisibility}>
                     <Button variant="contained" onClick={handleVerMas}>Ver más</Button>
