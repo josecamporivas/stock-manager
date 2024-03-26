@@ -27,6 +27,15 @@ async def get_by_username(username: str):
                 return None
             return User(**result)
 
+async def get_by_id(user_id: int):
+    with connect() as connection:
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT * FROM users WHERE user_id = %s and disabled=0', (user_id,))
+            result = cursor.fetchone()
+            if not result:
+                return None
+            return User(**result)
+
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
     if expires_delta:
@@ -37,10 +46,10 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-def create_token(username: str):
+def create_token(user_id: int):
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": username}, expires_delta=access_token_expires
+        data={"sub": str(user_id)}, expires_delta=access_token_expires
     )
     return Token(access_token=access_token, token_type="bearer")
 
@@ -56,17 +65,21 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
-
+    print(token)
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        user_id: int = int(payload.get("sub"))
+        print(user_id)
+        if user_id is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
-    except JWTError:
+        token_data = TokenData(user_id=user_id)
+    except JWTError as error:
+        print("JWTError")
+        print(error)
         raise credentials_exception
 
-    user = await get_by_username(token_data.username)
+    user = await get_by_id(token_data.user_id)
+    print(user)
     if user is None:
         raise credentials_exception
     return user
