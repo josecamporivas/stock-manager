@@ -43,7 +43,7 @@ export default function LogIn() {
     return (
         <Container maxWidth="md" sx={{marginTop: "200px"}}>
             <Box sx={{textAlign: "center"}}>
-                <h1 className="title-login color-primary">INICIO SESIÓN</h1>
+                <h1 className="title color-primary">INICIO SESIÓN</h1>
             </Box>
             <Box sx={{marginX: "auto"}}>
                 <form className="form-login">

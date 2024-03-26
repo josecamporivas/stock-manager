@@ -61,7 +61,7 @@ export default function Buys() {
             <Sidebar />
             <Container maxWidth="md">
                 <Box sx={{textAlign: "center"}}>
-                    <h1 className="title-login color-primary">COMPRAS</h1>
+                    <h1 className="title color-primary">COMPRAS</h1>
                     <ModalCreateBuy styleContainer={{marginBottom: 10}} setBuys={setBuys} />
                 </Box>
                 <Box sx={{marginBottom: 1}}>

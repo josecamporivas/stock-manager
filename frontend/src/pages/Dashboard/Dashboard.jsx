@@ -7,7 +7,7 @@ export default function Dashboard() {
             <Sidebar />
             <Container maxWidth="md" sx={{marginTop: "200px"}}>
                 <Box sx={{textAlign: "center"}}>
-                    <h1 className="title-login color-primary">DASHBOARD</h1>
+                    <h1 className="title color-primary">DASHBOARD</h1>
                 </Box>
             </Container>
         </>
