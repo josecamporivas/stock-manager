@@ -5,6 +5,7 @@ import { deleteBuy, getAllBuys } from "../../utils/queries/buys";
 import TableBuys from "../../components/TableBuys/TableBuys";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ModalCreateBuy from "../../components/ModalCreateBuy/ModalCreateBuy";
+import ModalCreateSupplier from "../../components/ModalCreateSupplier/ModalCreateSupplier";
 
 export default function Buys() {
     const navigate = useNavigate()
@@ -62,7 +63,10 @@ export default function Buys() {
             <Container maxWidth="md">
                 <Box sx={{textAlign: "center"}}>
                     <h1 className="title color-primary">COMPRAS</h1>
-                    <ModalCreateBuy styleContainer={{marginBottom: 10}} setBuys={setBuys} />
+                    <div style={{display:'flex', flexDirection: 'row', justifyContent: 'center', columnGap: '5px'}}>
+                        <ModalCreateBuy styleContainer={{marginBottom: 10}} setBuys={setBuys} />
+                        <ModalCreateSupplier />
+                    </div>
                 </Box>
                 <Box sx={{marginBottom: 1}}>
                     <TableBuys buys={buys} setBuys={setBuys} handleDelete={handleDelete}/>
