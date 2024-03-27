@@ -1,3 +1,18 @@
+export async function getAllUsers() {
+    const result = await fetch(`http://localhost:8000/users`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+
+    if(!result.ok) {
+        return {error: 'Error al obtener los usuarios'}
+    }
+
+    return await result.json()
+}
+
 export async function getCurrentInfoUser() {
     const result = await fetch(`http://localhost:8000/users/me`, {
         method: 'GET',

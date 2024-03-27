@@ -44,7 +44,6 @@ export default function Buys() {
         }
         
         fetchAllBuys()
-        return
     }, [])
 
     const handleDelete = (buy_id) => async () => {
