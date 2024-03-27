@@ -104,7 +104,7 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
       <Button onClick={handleOpen} sx={{bgcolor: "#1976d2", '&:hover > *': {color: '#1976d2'}}}><AddIcon sx={{color: '#fff'}} /></Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
-          <form onSubmit={handleSubmit} className='create-buy-form'>
+          <form onSubmit={handleSubmit} className='modal-form'>
             <Autocomplete
               isOptionEqualToValue={(option, value) => option.id === value.id}
               disablePortal
