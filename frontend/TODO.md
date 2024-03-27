@@ -1,0 +1,2 @@
+- [ ] Mostrar mensajes de error
+- [ ] Añadir validación a los campos de los formularios
