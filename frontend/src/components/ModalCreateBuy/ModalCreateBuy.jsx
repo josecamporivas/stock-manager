@@ -30,9 +30,6 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
   const [products, setProducts] = useState([])
   const [listProducts, setListProducts] = useState([{name: '', amount: '', cost: ''}])
   
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   const fetchAllSuppliers = async () => {
     const data = await getAllSuppliers()
     if(data.error) {
@@ -51,10 +48,13 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
     setProducts(data)
   }
 
-  useEffect(() => {
+  const handleOpen = () => {
     fetchAllSuppliers()
     fetchProductsIdAndName()
-  }, [])
+    setOpen(true)
+  }
+
+  const handleClose = () => setOpen(false)
 
   const mappedSuppliers = suppliers.map(supplier => {
     return {label: supplier.name, id: supplier.supplier_id}
