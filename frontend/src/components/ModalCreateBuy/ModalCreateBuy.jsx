@@ -12,6 +12,7 @@ import './ModalCreateBuy.css'
 import { createBuy } from '../../utils/queries/buys';
 
 import CloseIcon from '@mui/icons-material/Close';
+import SendIcon from '@mui/icons-material/Send';
 
 const style = {
   position: 'absolute',
@@ -160,7 +161,11 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
                 )
             })}
             <Button variant="outlined" onClick={addFields}>Añadir producto</Button>
-            <Button variant="outlined" type='submit'>Crear compra</Button>
+            <Button type="submit" variant="contained" 
+              sx={{backgroundColor: '#0F4C75', color: 'white'}}
+              endIcon={<SendIcon />}>
+              Crear compra
+            </Button>
           </form>
         </Box>
       </Modal>
