@@ -63,3 +63,17 @@ export async function updateUser(data) {
     return await result.json()
 }
 
+export async function deleteUser(user_id) {
+    const result = await fetch(`http://localhost:8000/users/${user_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if(!result.ok) {
+        return {error: 'Error al eliminar el usuario'}
+    }
+
+    return {}
+}
