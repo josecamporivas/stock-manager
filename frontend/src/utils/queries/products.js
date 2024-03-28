@@ -30,3 +30,19 @@ export async function getProductsIdNameCost() {
     const data = await response.json()
     return data
 }
+
+export async function getAllUnitMeasures() {
+    const response = await fetch(`http://localhost:8000/products/unit-measures`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if(!response.ok){
+        return {error: response.statusText}
+    }
+
+    const data = await response.json()
+    return data
+}
