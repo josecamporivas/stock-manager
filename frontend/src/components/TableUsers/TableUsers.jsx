@@ -1,6 +1,9 @@
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
-export default function TableUsers({users}) {
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+export default function TableUsers({users, handleDelete}) {
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -12,6 +15,7 @@ export default function TableUsers({users}) {
                     <TableCell align="center">Apellidos</TableCell>
                     <TableCell align="center">Email</TableCell>
                     <TableCell align="center">Rol</TableCell>
+                    <TableCell align="center">Acciones</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>
@@ -23,6 +27,12 @@ export default function TableUsers({users}) {
                         <TableCell align="center">{user.surname}</TableCell>
                         <TableCell align="center">{user.email}</TableCell>
                         <TableCell align="center">{user.role}</TableCell>
+                        <TableCell align="center">
+                            <Box sx={{display: 'flex', justifyContent: 'center'}}>
+                                <IconButton color='primary' ><EditIcon /></IconButton> {/* TODO: add functionality to update user info */}
+                                <IconButton color='error' onClick={handleDelete(user.user_id)}><DeleteIcon /></IconButton>
+                            </Box> 
+                        </TableCell>
                     </TableRow>
                 ))}
                 </TableBody>

@@ -4,6 +4,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import AddIcon from '@mui/icons-material/Add';
 import SendIcon from '@mui/icons-material/Send';
+import { createUser } from "../../utils/queries/user";
 
 const style = {
     position: 'absolute',
@@ -16,7 +17,7 @@ const style = {
     p: 4,
   };
 
-export default function ModalCreateUser({styleContainer}) {
+export default function ModalCreateUser({styleContainer, setUsers}) {
     const [open, setOpen] = useState(false)
     const [userData, setUserData] = useState({
         username: '',
@@ -38,7 +39,14 @@ export default function ModalCreateUser({styleContainer}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(userData)
+
+        const result = await createUser(userData)
+        if(result.error) {
+            //TODO: handle error
+            return
+        }
+
+        setUsers(users => [...users, result])
     }
     return (
         <div style={styleContainer}>
@@ -100,7 +108,7 @@ export default function ModalCreateUser({styleContainer}) {
                         <Button type="submit" variant="contained" 
                             sx={{backgroundColor: '#0F4C75', color: 'white'}}
                             endIcon={<SendIcon />}>
-                            Guardar cambios
+                            Crear usuario
                         </Button>
                     </form>
                 </Box>

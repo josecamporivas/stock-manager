@@ -37,6 +37,7 @@ export default function Users() {
                 <Box sx={{textAlign: "center"}}>
                     <h1 className="title color-primary">USUARIOS</h1>
                     <ModalCreateUser styleContainer={{marginBottom: 10}} />
+                    <ModalCreateUser styleContainer={{marginBottom: 10}} setUsers={setUsers} />
                 </Box>
                 <Box sx={{marginBottom: 1}}>
                     <TableUsers users={users} />

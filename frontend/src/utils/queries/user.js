@@ -1,5 +1,5 @@
 export async function getAllUsers() {
-    const result = await fetch(`http://localhost:8000/users`, {
+    const result = await fetch(`http://localhost:8000/users/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -28,6 +28,23 @@ export async function getCurrentInfoUser() {
 
     return await result.json()
 }
+
+export async function createUser(data) {
+    const result = await fetch(`http://localhost:8000/users`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+
+    if(!result.ok) {
+        return {error: 'Error al crear el usuario'}
+    }
+
+    return await result.json()
+}
+
 
 export async function updateUser(data) {
     const result = await fetch(`http://localhost:8000/users/${data.user_id}`, {
