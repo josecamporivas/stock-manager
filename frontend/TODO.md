@@ -1,2 +1,4 @@
 - [ ] Mostrar mensajes de error
 - [ ] Añadir validación a los campos de los formularios
+- [ ] Gestionar bien los inicios de sesión para hacer acciones sobre el backend
+- [ ] Mostrar las funcionalidades según el tipo de usuario que se conecte
