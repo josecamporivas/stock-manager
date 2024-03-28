@@ -20,7 +20,7 @@ export default function TableUsers({users, handleDelete, setUsers}) {
                 </TableHead>
                 <TableBody>
                 {users.map((user) => (
-                    <TableRow key={user.username} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableRow key={user.user_id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">{user.username}</TableCell>
                         <TableCell align="center">{user.dni}</TableCell>
                         <TableCell align="center">{user.name}</TableCell>

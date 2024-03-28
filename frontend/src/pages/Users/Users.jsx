@@ -54,7 +54,6 @@ export default function Users() {
                     <TableUsers users={users} handleDelete={handleDelete} setUsers={setUsers} />
                 </Box>
             </Container>
-
         </>
     )
 }

@@ -80,8 +80,7 @@ export default function Profile() {
 
     return (
         <>
-            <Sidebar />
-            
+            <Sidebar />     
             <Snackbar
                 open={snackbarOpen}
                 autoHideDuration={3000}
@@ -101,7 +100,7 @@ export default function Profile() {
                     </Button>
                 </Box>
                 <Box sx={{textAlign: "center"}}>
-                    <form className="form-profile" onSubmit={handleSubmit}>
+                    <form className="modal-form" onSubmit={handleSubmit}>
                         <TextField size='small' name='username' label="Nombre de usuario" value={userData.username}
                             InputLabelProps={{
                                 shrink: true,

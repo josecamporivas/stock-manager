@@ -78,7 +78,7 @@ export default function ModalCreateUpdateUser({styleContainer, setUsers, mode, u
             {mode === 'update' && <IconButton color='primary' onClick={handleOpen}><EditIcon /></IconButton>}
             <Modal open={open} onClose={handleClose}>
                 <Box sx={style}>
-                <form className="form-profile" onSubmit={handleSubmit}>
+                <form className="modal-form" onSubmit={handleSubmit}>
                         <TextField size='small' name='username' label="Nombre de usuario" value={userData.username}
                             onChange={handleInputChange}
                         />
