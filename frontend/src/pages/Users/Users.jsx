@@ -4,7 +4,7 @@ import TableUsers from "../../components/TableUsers/TableUsers";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, getAllUsers } from "../../utils/queries/user";
-import ModalCreateUpdateUser from "../../components/ModalCreateUser/ModalCreateUser";
+import ModalCreateUpdateUser from "../../components/ModalCreateUpdateUser/ModalCreateUpdateUser";
 
 export default function Users() {
     const [users, setUsers] = useState([])

@@ -1,7 +1,7 @@
 import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import ModalCreateUpdateUser from "../ModalCreateUser/ModalCreateUser";
+import ModalCreateUpdateUser from "../ModalCreateUpdateUser/ModalCreateUpdateUser";
 
 export default function TableUsers({users, handleDelete, setUsers}) {
     return (
