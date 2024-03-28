@@ -1,9 +1,9 @@
 import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ModalCreateUpdateUser from "../ModalCreateUser/ModalCreateUser";
 
-export default function TableUsers({users, handleDelete}) {
+export default function TableUsers({users, handleDelete, setUsers}) {
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -29,7 +29,8 @@ export default function TableUsers({users, handleDelete}) {
                         <TableCell align="center">{user.role}</TableCell>
                         <TableCell align="center">
                             <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                                <IconButton color='primary' ><EditIcon /></IconButton> {/* TODO: add functionality to update user info */}
+                                <ModalCreateUpdateUser userDataProps={user} mode='update' setUsers={setUsers}/>
+                                {/* <IconButton color='primary' ><EditIcon /></IconButton> */} {/* TODO: add functionality to update user info */}
                                 <IconButton color='error' onClick={handleDelete(user.user_id)}><DeleteIcon /></IconButton>
                             </Box> 
                         </TableCell>

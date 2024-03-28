@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import SendIcon from '@mui/icons-material/Send';
-import { createUser } from "../../utils/queries/user";
+import { createUser, updateUser } from "../../utils/queries/user";
 
 const style = {
     position: 'absolute',
@@ -17,17 +18,19 @@ const style = {
     p: 4,
   };
 
-export default function ModalCreateUser({styleContainer, setUsers}) {
+const userDataDefault = {
+    username: '',
+    password: '',
+    name: '',
+    surname: '',
+    dni: '',
+    email: '',
+    role: ''
+}
+
+export default function ModalCreateUpdateUser({styleContainer, setUsers, mode, userDataProps = userDataDefault}) {
     const [open, setOpen] = useState(false)
-    const [userData, setUserData] = useState({
-        username: '',
-        password: '',
-        name: '',
-        surname: '',
-        dni: '',
-        email: '',
-        role: ''
-    })
+    const [userData, setUserData] = useState(userDataProps)
     const [showPassword, setShowPassword] = useState(false)
 
     const handleOpen = () => setOpen(true)
@@ -37,9 +40,7 @@ export default function ModalCreateUser({styleContainer, setUsers}) {
         setUserData({...userData, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-
+    const createUserHandler = async () => {
         const result = await createUser(userData)
         if(result.error) {
             //TODO: handle error
@@ -48,9 +49,33 @@ export default function ModalCreateUser({styleContainer, setUsers}) {
 
         setUsers(users => [...users, result])
     }
+
+    const updateUserHandler = async () => {
+        const result = await updateUser(userData)
+        
+        if(result.error) {
+            //TODO: handle error
+            return
+        }
+ 
+        setUsers(users => [...users.filter(user => user.user_id !== userData.user_id), result])
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        if (mode === 'create') {
+            await createUserHandler()
+        }
+        
+        if (mode === 'update') {
+            await updateUserHandler()
+        }
+    }
     return (
         <div style={styleContainer}>
-            <Button onClick={handleOpen} sx={{bgcolor: "#1976d2", '&:hover > *': {color: '#1976d2'}}}><AddIcon sx={{color: '#fff'}} /></Button>
+            {mode === 'create' && <Button onClick={handleOpen} sx={{bgcolor: "#1976d2", '&:hover > *': {color: '#1976d2'}}}><AddIcon sx={{color: '#fff'}} /></Button>}
+            {mode === 'update' && <IconButton color='primary' onClick={handleOpen}><EditIcon /></IconButton>}
             <Modal open={open} onClose={handleClose}>
                 <Box sx={style}>
                 <form className="form-profile" onSubmit={handleSubmit}>
@@ -108,7 +133,7 @@ export default function ModalCreateUser({styleContainer, setUsers}) {
                         <Button type="submit" variant="contained" 
                             sx={{backgroundColor: '#0F4C75', color: 'white'}}
                             endIcon={<SendIcon />}>
-                            Crear usuario
+                            {mode === 'create' ? 'Crear usuario': 'Modificar usuario'}
                         </Button>
                     </form>
                 </Box>

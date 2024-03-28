@@ -4,7 +4,7 @@ import TableUsers from "../../components/TableUsers/TableUsers";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, getAllUsers } from "../../utils/queries/user";
-import ModalCreateUser from "../../components/ModalCreateUser/ModalCreateUser";
+import ModalCreateUpdateUser from "../../components/ModalCreateUser/ModalCreateUser";
 
 export default function Users() {
     const [users, setUsers] = useState([])
@@ -16,7 +16,7 @@ export default function Users() {
             //TODO: handle error
             return
         }
-        setUsers(data)
+        setUsers(data.map(user => ({...user, password: ''})))
     }
 
     useEffect(() => {
@@ -48,10 +48,10 @@ export default function Users() {
             <Container maxWidth="md">
                 <Box sx={{textAlign: "center"}}>
                     <h1 className="title color-primary">USUARIOS</h1>
-                    <ModalCreateUser styleContainer={{marginBottom: 10}} setUsers={setUsers} />
+                    <ModalCreateUpdateUser setUsers={setUsers} mode='create' styleContainer={{marginBottom: 10}} />
                 </Box>
                 <Box sx={{marginBottom: 1}}>
-                    <TableUsers users={users} handleDelete={handleDelete} />
+                    <TableUsers users={users} handleDelete={handleDelete} setUsers={setUsers} />
                 </Box>
             </Container>
 
