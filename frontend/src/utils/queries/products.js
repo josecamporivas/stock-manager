@@ -46,3 +46,54 @@ export async function getAllUnitMeasures() {
     const data = await response.json()
     return data
 }
+
+
+export async function createProduct(productData) {
+    console.log(productData)
+    const response = await fetch(`http://localhost:8000/products/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(productData)
+    })
+
+    if(!response.ok){
+        return {error: response.statusText}
+    }
+
+    const data = await response.json()
+    return data
+}
+
+export async function updateProduct(productData) {
+    const response = await fetch(`http://localhost:8000/products/${productData.product_id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(productData)
+    })
+
+    if(!response.ok){
+        return {error: response.statusText}
+    }
+
+    const data = await response.json()
+    return data
+}
+
+export async function deleteProduct(productId) {
+    const response = await fetch(`http://localhost:8000/products/${productId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if(!response.ok){
+        return {error: response.statusText}
+    }
+
+    return {}
+}

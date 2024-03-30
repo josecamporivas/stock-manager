@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/material";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../../utils/queries/products";
+import { deleteProduct, getAllProducts } from "../../utils/queries/products";
 import TableProducts from "../../components/TableProducts/TableProducts";
 import ModalCreateUpdateProduct from "../../components/ModalCreateUpdateProduct/ModalCreateUpdateProduct";
 
@@ -18,8 +18,16 @@ export default function Products() {
         setProducts(data)
     }
 
-    const handleDelete = (productId) => () => {  //TODO: manage delete
+    const handleDelete = (productId) => async () => {
         console.log('delete', productId)
+        const result = await deleteProduct(productId)
+        if(result.error) {
+            //TODO: handle error
+            return
+        }
+
+        const newProducts = products.filter(product => product.product_id !== productId)
+        setProducts(newProducts)
     } 
 
     useEffect(() => {
