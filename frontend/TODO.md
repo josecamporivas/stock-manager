@@ -4,3 +4,4 @@
 - [ ] Mostrar las funcionalidades según el tipo de usuario que se conecte
 - [ ] Mostrar notificaciones
 - [ ] Generar factura con cada venta
+- [ ] FIX: inicio de sesión con usuarios eliminados (desactivados) 
