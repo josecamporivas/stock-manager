@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, TextField } from "@mui/material";
 import { useState } from "react";
-import { getAllUnitMeasures } from "../../utils/queries/products";
+import { createProduct, getAllUnitMeasures, updateProduct } from "../../utils/queries/products";
 
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -55,9 +55,44 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
         setProductData({...productData, [e.target.name]: e.target.value})
     }
 
+    const createProductHandler = async () => {
+        const productDataCreate = {...productData, unit_measure_id: productData.unit.unit_measure_id}
+        productDataCreate.unit = undefined
+
+        const result = await createProduct(productDataCreate)
+        if(result.error) {
+            //TODO: handle error
+            return
+        }
+
+        setProducts(products => [...products, result])
+    }
+
+    const updateProductHandler = async () => {
+        const productDataUpdate = {...productData, unit_measure_id: productData.unit.unit_measure_id}
+
+        const result = await updateProduct(productDataUpdate)
+        if(result.error) {
+            //TODO: handle error
+            return
+        }
+
+        setProducts(products => [...products.filter(product => product.product_id !== productData.product_id), result])
+    }
+
     const handleSubmit = async (e) => {     //TODO: manage submit
         e.preventDefault()
         console.log('submit')
+
+        if(mode === 'create') {
+            await createProductHandler()
+            return
+        }
+
+        if(mode === 'update') {
+            await updateProductHandler()
+            return
+        }
     }
 
     return (
