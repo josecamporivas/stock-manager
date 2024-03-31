@@ -28,8 +28,7 @@ export default function LogIn() {
             return
         }
         sessionStorage.setItem('token', result.access_token)
-        return navigate('/dashboard')
-
+        navigate('/dashboard')
     }
 
     const handleChangeUsername = (e) => {
