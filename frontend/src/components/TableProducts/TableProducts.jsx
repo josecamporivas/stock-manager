@@ -29,8 +29,6 @@ export default function TableProducts({products, setProducts, handleDelete}) {
                             <Box sx={{display: 'flex', justifyContent: 'center'}}>
                                 <ModalCreateUpdateProduct productDataProps={product} mode='update' setProducts={setProducts}/>
                                 <IconButton color='error' onClick={handleDelete(product.product_id)}><DeleteIcon /></IconButton>
-                                {/* <ModalCreateUpdateUser userDataProps={user} mode='update' setUsers={setUsers}/>
-                                <IconButton color='error' onClick={handleDelete(user.user_id)}><DeleteIcon /></IconButton> */}
                             </Box> 
                         </TableCell>
                     </TableRow>

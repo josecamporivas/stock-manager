@@ -30,7 +30,6 @@ export default function TableUsers({users, handleDelete, setUsers}) {
                         <TableCell align="center">
                             <Box sx={{display: 'flex', justifyContent: 'center'}}>
                                 <ModalCreateUpdateUser userDataProps={user} mode='update' setUsers={setUsers}/>
-                                {/* <IconButton color='primary' ><EditIcon /></IconButton> */} {/* TODO: add functionality to update user info */}
                                 <IconButton color='error' onClick={handleDelete(user.user_id)}><DeleteIcon /></IconButton>
                             </Box> 
                         </TableCell>
