@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Arsenal
+- Font Author: Copyright 2012 The Arsenal Project Authors (andrij.design@gmail.com)
+- Font Source: https://fonts.gstatic.com/s/arsenal/v12/wXKuE3kQtZQ4pF3D7-P5JeQAmX8yrdk.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))
