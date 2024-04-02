@@ -2,16 +2,21 @@ import { Box, Collapse, IconButton, Table, TableBody, TableCell, TableContainer,
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useState } from 'react';
 import { format } from '../../utils/dates/dateFormatter'
+import ModalCreateUpdateBuy from '../ModalCreateUpdateBuy/ModalCreateUpdateBuy';
 
-function Row({buy, products, handleDelete}) {
+function Row({buy, products, handleDelete, setBuys}) {
   const [open, setOpen] = useState(false);
 
   const total_cost = products.reduce((acc, product) => acc + product.cost * product.amount, 0)
+  
+  const buyInfoData = {
+    buy,
+    products: products.map(product => ({name: product.product.name, cost: product.cost, amount: product.amount}))
+  }
 
   return (
     <>
@@ -34,7 +39,7 @@ function Row({buy, products, handleDelete}) {
         <TableCell align="center">{total_cost} €</TableCell>
         <TableCell align="center">
           <Box sx={{display: 'flex', justifyContent: 'center'}}>
-            <IconButton color='primary' ><EditIcon /></IconButton> {/* TODO: add functionality to update buys info */}
+            <ModalCreateUpdateBuy buyInfoData={buyInfoData} setBuys={setBuys} mode='update'/>
             <IconButton color='error' onClick={handleDelete(buy.buy_id)}><DeleteIcon /></IconButton>
           </Box> 
         </TableCell>
@@ -78,7 +83,7 @@ function Row({buy, products, handleDelete}) {
   );
 }
 
-export default function TableBuys({buys, handleDelete}) {
+export default function TableBuys({buys, handleDelete, setBuys}) {
 
     return (
         <TableContainer component={Paper}>
@@ -96,7 +101,7 @@ export default function TableBuys({buys, handleDelete}) {
             </TableHead>
             <TableBody>
             {buys.map(({buy, products}) => (
-                <Row key={buy.buy_id} buy={buy} products={products} handleDelete={handleDelete} />
+                <Row key={buy.buy_id} buy={buy} products={products} handleDelete={handleDelete} setBuys={setBuys} />
             ))}
             </TableBody>
         </Table>

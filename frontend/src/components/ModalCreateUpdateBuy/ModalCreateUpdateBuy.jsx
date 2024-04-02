@@ -9,10 +9,12 @@ import { getAllSuppliers } from '../../utils/queries/supplier';
 import { getProductsIdNameCost } from '../../utils/queries/products';
 
 import './ModalCreateBuy.css'
-import { createBuy } from '../../utils/queries/buys';
+import { createBuy, updateBuy } from '../../utils/queries/buys';
 
 import CloseIcon from '@mui/icons-material/Close';
 import SendIcon from '@mui/icons-material/Send';
+import { IconButton } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const style = {
   position: 'absolute',
@@ -25,11 +27,18 @@ const style = {
   p: 4,
 };
 
-export default function ModalCreateBuy({styleContainer, setBuys}) {
+const buyInfoDefault = {
+  buy: {
+    supplier_id: '',
+  },
+  products: [{name: '', amount: '', cost: ''}]
+}
+
+export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyInfoDefault, setBuys, mode = 'create'}) {
   const [open, setOpen] = useState(false);
   const [suppliers, setSuppliers] = useState([])
   const [products, setProducts] = useState([])
-  const [listProducts, setListProducts] = useState([{name: '', amount: '', cost: ''}])
+  const [buyInfo, setBuyInfo] = useState(buyInfoData)
   
   const fetchAllSuppliers = async () => {
     const data = await getAllSuppliers()
@@ -55,7 +64,13 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
     setOpen(true)
   }
 
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+
+    if(mode === 'create') {
+      setBuyInfo(buyInfoDefault)
+    }
+  }
 
   const mappedSuppliers = suppliers.map(supplier => {
     return {label: supplier.name, id: supplier.supplier_id}
@@ -66,26 +81,36 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
   })
 
   const handleChange = (index, name, value) => {
-    let data = [...listProducts]
+    if(name === 'supplier') {
+      setBuyInfo({...buyInfo, buy : {...buyInfo.buy, supplier_id: value}})
+      return
+    }
+
+    let data = [...buyInfo.products]
     data[index][name] = value
-    setListProducts(data)
+    setBuyInfo({...buyInfo, products: data})
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const supplier_id =  suppliers.find(sup => sup.name === e.target[0].value)?.supplier_id ?? null
-    const products = listProducts.filter(product => product.name && product.amount && product.cost).map(product => {
-      return {
-        product_id: mappedProducts.find(item => item.label === product.name).id ?? null,
-        amount: product.amount,
-        cost: product.cost
-      }
-    })
+  const handleDeleteListProduct = (index) => {
+    setBuyInfo({...buyInfo, products: buyInfo.products.filter((_, i) => i !== index)})
+  }
 
-    if(supplier_id === null || products.length === 0) {
-      // TODO: handle error: Not all fields are filled
+  const handleSubmitUpdate = async (buy_id, supplier_id, products) => {
+    const result = await updateBuy({buy_id, supplier_id, listProducts: products})
+    if(result.error) {
+      //TODO: handle error
+      return
     }
-    console.log(supplier_id, products)
+
+    setBuys((buys) => buys.map(buy => {
+      if(buy.buy.buy_id === buy_id) {
+        return result
+      }
+      return buy
+    }))
+  }
+
+  const handleSubmitCreate = async (supplier_id, products) => {
     const result = await createBuy({supplier_id, listProducts: products})
     if(result.error) {
       //TODO: handle error
@@ -95,14 +120,50 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
     setBuys((buys) => [result, ...buys])
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const products = buyInfo.products.filter(product => product.name && product.amount && product.cost).map(product => {
+      return {
+        product_id: mappedProducts.find(item => item.label === product.name).id ?? null,
+        amount: product.amount,
+        cost: product.cost
+      }
+    })
+
+    if(buyInfo.buy.supplier_id === null || products.length === 0) {
+      // TODO: handle error: Not all fields are filled
+    }
+
+    if(mode === 'create') {
+      handleSubmitCreate(buyInfo.buy.supplier_id, products)
+      return
+    }
+
+    if (mode === 'update') {
+      handleSubmitUpdate(buyInfo.buy.buy_id, buyInfo.buy.supplier_id, products)
+      return
+    }
+    
+    /* 
+    const result = await createBuy({supplier_id, listProducts: products})
+    if(result.error) {
+      //TODO: handle error
+      return
+    }
+
+    setBuys((buys) => [result, ...buys]) */
+  }
+
   const addFields = (e) => {
     e.preventDefault()
-    setListProducts([...listProducts, {name: '', amount: '', cost: ''}])
+    setBuyInfo({...buyInfo, products: [...buyInfo.products, {name: '', amount: '', cost: ''}]})
   }
 
   return (
     <div style={styleContainer}>
-      <Button onClick={handleOpen} sx={{bgcolor: "#1976d2", '&:hover > *': {color: '#1976d2'}}}><AddIcon sx={{color: '#fff'}} /></Button>
+      {mode === 'create' && <Button onClick={handleOpen} sx={{bgcolor: "#1976d2", '&:hover > *': {color: '#1976d2'}}}><AddIcon sx={{color: '#fff'}} /></Button>}
+      {mode === 'update' && <IconButton color='primary' onClick={handleOpen}><EditIcon /></IconButton>}
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <form onSubmit={handleSubmit} className='modal-form'>
@@ -114,10 +175,12 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
               options={mappedSuppliers}
               sx={{ width: 250 }}
               size='small'
+              onChange={(e, value) => handleChange(0, 'supplier', value.id)}
+              value={mappedSuppliers.find(supplier => supplier.id === buyInfo.buy.supplier_id) ?? null}
               renderInput={(params) => <TextField {...params} label="Proveedor" />}
             />
 
-            {listProducts.map((product, index) => {
+            {buyInfo.products.map((product, index) => {
                 return (
                   <div key={index} className='row-products-create-buy'>
                       <Autocomplete
@@ -126,6 +189,7 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
                         disablePortal
                         options={mappedProducts}
                         sx={{ width: 300 }}
+                        value={mappedProducts.find(prod => prod.label === product.name) ?? null}
                         onChange={(e, value, reason) => {
                           if(reason === "selectOption"){
                             handleChange(index, 'cost', products.find(product => product.product_id === value.id)?.cost)
@@ -133,7 +197,8 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
                             e.target.parentElement.parentElement.parentElement.nextSibling.nextSibling.querySelector('input').label
                           }
                         }}
-                        renderInput={(params) => <TextField {...params} name='name' label="Producto" value={product.name} />}
+                        renderInput={(params) => <TextField {...params} name='name' label="Producto" />}
+                        disabled={mode === 'update'}
                       />
                       <TextField
                         size='small'
@@ -156,7 +221,8 @@ export default function ModalCreateBuy({styleContainer, setBuys}) {
                         value={product.cost}
                       />
 
-                      <CloseIcon sx={{color: 'red', '&:hover':{cursor: 'pointer'}}} onClick={() => setListProducts(listProducts.filter((_, i) => i !== index))}/>
+                      <CloseIcon sx={{color: 'red', '&:hover':{cursor: 'pointer'}, display: mode === 'update' ? 'none': 'block'}}
+                              onClick={() => handleDeleteListProduct(index)} />
                   </div>
                 )
             })}

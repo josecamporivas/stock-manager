@@ -14,7 +14,28 @@ export async function getAllUsers() {
 }
 
 export async function getCurrentInfoUser() {
-    const result = await fetch(`http://localhost:8000/users/me`, {
+    const token = sessionStorage.getItem("token")
+    if(!token) {
+        return {error: "No hay token"}
+    }
+
+    const me = await fetch(`http://localhost:8000/users/me`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+
+    if(!me.ok){
+        return {error: 'Error al obtener la información del usuario'}
+    }
+
+    return await me.json()
+    
+    
+   
+/*     const result = await fetch(`http://localhost:8000/users/me`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -26,7 +47,7 @@ export async function getCurrentInfoUser() {
         return {error: 'Error al obtener la información del usuario'}
     }
 
-    return await result.json()
+    return await result.json() */
 }
 
 export async function createUser(data) {
