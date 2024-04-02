@@ -5,7 +5,7 @@ export async function getAllSuppliers({page = 1, size = 10} = {}) {
         return {error: "No hay token"}
     }
 
-    const response = await fetch(`http://localhost:8000/suppliers?page=${page}&size=${size}`, {
+    const response = await fetch(`http://localhost:8000/suppliers/?page=${page}&size=${size}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
