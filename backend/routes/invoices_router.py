@@ -18,7 +18,7 @@ async def get_by_id(id: int):
     return invoice
 
 @router.post("/", status_code=201)
-async def create(invoice: InvoiceCreate, lines: list[InvoiceLineCreate]):  # TODO: get user_id from token, not from request
+async def create(invoice: InvoiceCreate, lines: list[InvoiceLineCreate]):
     return await Invoices.create(invoice, lines)
 
 @router.put("/{id}")
