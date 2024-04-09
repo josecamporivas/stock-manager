@@ -45,7 +45,7 @@ function Row({buy, products, handleDelete, setBuys}) {
         </TableCell>
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom component="div" sx={{fontWeight: '700'}} > 
@@ -91,7 +91,7 @@ export default function TableBuys({buys, handleDelete, setBuys}) {
             <TableHead>
               <TableRow sx={{backgroundColor: '#DDD'}}>
                   <TableCell />
-                  <TableCell sx={{maxWidth: '150px'}} align='center'>Ventas<br/>(orden por fecha)</TableCell>
+                  <TableCell sx={{maxWidth: '150px'}} align='center'>Compras<br/>(orden por fecha)</TableCell>
                   <TableCell align="center">Número de productos</TableCell>
                   <TableCell align="center">Proveedor</TableCell>
                   <TableCell align="center">Gestor de compra</TableCell>
