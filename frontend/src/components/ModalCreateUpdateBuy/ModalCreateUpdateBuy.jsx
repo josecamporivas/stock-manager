@@ -230,7 +230,7 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
             <Button type="submit" variant="contained" 
               sx={{backgroundColor: '#0F4C75', color: 'white'}}
               endIcon={<SendIcon />}>
-              Crear compra
+              {mode === 'create' && 'Crear compra' || 'Modificar compra'}
             </Button>
           </form>
         </Box>
