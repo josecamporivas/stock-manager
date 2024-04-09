@@ -1,10 +1,68 @@
+import { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { Box, Button, Container } from "@mui/material";
+
+import { useNavigate } from "react-router-dom";
+import { getAllSales } from "../../utils/queries/sales";
+import TableSales from "../../components/TableSales/TableSales";
 
 export default function Sales() {
+    const [sales, setSales] = useState([])
+    const [page, setPage] = useState(1)
+    const [verMasVisibility, setVerMasVisibility] = useState("visible")
+    const navigate = useNavigate()
+
+    const fetchAllSales = async () => {
+        const data = await getAllSales()
+        if(data.error) {
+            //TODO: handle error
+            return
+        }
+        setSales(data)
+    }
+
+    useEffect(() => {
+        const token = sessionStorage.getItem("token")
+        if(!token) {
+            navigate('/login')
+        }
+
+        fetchAllSales()
+    }, [])
+
+    const handleVerMas = async () => {
+        const data = await getAllSales({page: page + 1})
+        if(data.error) {
+            //TODO: handle error
+            return
+        }
+        if(data.length < 10) {
+            setVerMasVisibility("hidden")
+            return
+        }
+        setBuys([...sales, ...data])
+        setPage(page + 1)
+    }
+
+
     return (
         <>
             <Sidebar />
-            <h1>Sales</h1>
+            <Container maxWidth="md">
+                <Box sx={{textAlign: "center"}}>
+                    <h1 className="title color-primary">VENTAS</h1>
+                    <div style={{display:'flex', flexDirection: 'row', justifyContent: 'center', columnGap: '5px'}}>
+                        {/* <ModalCreateUpdateBuy styleContainer={{marginBottom: 10}} setBuys={setBuys} /> */}
+                        {/* <ModalCreateSupplier /> */}
+                    </div>
+                </Box>
+                <Box sx={{marginBottom: 1}}>
+                    <TableSales sales={sales} setSales={setSales} /* handleDelete={handleDelete} */ />
+                </Box>
+                <Box sx={{textAlign: "center", marginBottom: 3}} visibility={verMasVisibility}>
+                    <Button variant="contained" onClick={handleVerMas}>Ver más</Button>
+                </Box>
+            </Container>
         </>
     )
 }

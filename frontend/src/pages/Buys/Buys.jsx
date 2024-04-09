@@ -28,7 +28,7 @@ export default function Buys() {
             //TODO: handle error
             return
         }
-        if(data.length === 0) {
+        if(data.length < 10) {
             setVerMasVisibility("hidden")
             return
         }
