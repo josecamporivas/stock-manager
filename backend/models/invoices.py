@@ -12,8 +12,7 @@ class Invoices:
     async def all(page: int, size: int):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT invoice_id FROM invoices WHERE disabled=0 LIMIT %s OFFSET %s',
-                               (size, (page - 1) * size))
+                cursor.execute('SELECT invoice_id FROM invoices WHERE disabled=0 ORDER BY date DESC LIMIT %s OFFSET %s', (size, (page - 1) * size))
                 results = cursor.fetchall()
                 if results is None or len(results) == 0:
                     return []
@@ -34,16 +33,22 @@ class Invoices:
                 if not invoice:
                     return None
                 result['invoice'] = invoice
+                cursor.execute('SELECT username FROM users WHERE user_id = %s', (result['invoice']['user_id'],))
+                result['invoice']['user_name'] = cursor.fetchone()['username']
+                cursor.execute('SELECT name FROM clients WHERE client_id = %s', (result['invoice']['client_id'],))
+                result['invoice']['client_name'] = cursor.fetchone()['name']
 
                 cursor.execute('SELECT * FROM invoice_lines WHERE invoice_id = %s ORDER BY line_number', (id_invoice,))
                 lines = cursor.fetchall()
+                result['lines'] = []
                 for line in lines:
-                    cursor.execute('SELECT * FROM products WHERE product_id = %s', (line['product_id'],))
-                    product = cursor.fetchone()
-                    line['product'] = product
-                    del line['product_id']
-                result['lines'] = lines
-
+                    line_info = {'price': line['price'], 'amount': line['amount']}
+                    cursor.execute('SELECT *  FROM products WHERE product_id = %s', (line['product_id'],))
+                    line_info['product'] = cursor.fetchone()
+                    cursor.execute('SELECT abbreviation FROM unit_measures WHERE unit_measure_id = %s',
+                                   (line_info['product']['unit_measure_id'],))
+                    line_info['product']['unit_measure_abbreviation'] = cursor.fetchone()['abbreviation']
+                    result['lines'].append(line_info)
                 return result
 
     @staticmethod
