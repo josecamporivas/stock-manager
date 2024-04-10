@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useState } from 'react';
 import { format } from '../../utils/dates/dateFormatter'
+import ModalCreateUpdateSale from '../ModalCreateUpdateSale/ModalCreateUpdateSale';
 
 function Row({invoice, lines, setSales, handleDelete}) {
     const [open, setOpen] = useState(false);
@@ -38,8 +39,8 @@ function Row({invoice, lines, setSales, handleDelete}) {
           <TableCell align="center">{total_price} €</TableCell>
           <TableCell align="center">
             <Box sx={{display: 'flex', justifyContent: 'center'}}>  {/* TODO: handle update and delete sale */}
-              {/* <ModalCreateUpdateBuy buyInfoData={buyInfoData} setBuys={setBuys} mode='update'/>
-              <IconButton color='error' onClick={handleDelete(buy.buy_id)}><DeleteIcon /></IconButton> */}
+              <ModalCreateUpdateSale mode='update' setSales={setSales} saleInfoData={saleInfoData} />
+              <IconButton color='error' onClick={handleDelete(invoice.invoice_id)}><DeleteIcon /></IconButton>
             </Box> 
           </TableCell>
         </TableRow>

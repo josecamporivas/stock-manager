@@ -3,7 +3,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import { Box, Button, Container } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
-import { getAllSales } from "../../utils/queries/sales";
+import { deleteSale, getAllSales } from "../../utils/queries/sales";
 import TableSales from "../../components/TableSales/TableSales";
 
 export default function Sales() {
@@ -44,6 +44,15 @@ export default function Sales() {
         setPage(page + 1)
     }
 
+    const handleDelete = (invoice_id) => async () => {
+        const data = await deleteSale(invoice_id)
+        if(data.error) {
+            //TODO: handle error
+            return
+        }
+        const newSales = [...sales.filter(sale => sale.invoice.invoice_id !== invoice_id)]
+        setSales(newSales)
+    }
 
     return (
         <>
@@ -57,7 +66,7 @@ export default function Sales() {
                     </div>
                 </Box>
                 <Box sx={{marginBottom: 1}}>
-                    <TableSales sales={sales} setSales={setSales} /* handleDelete={handleDelete} */ />
+                    <TableSales sales={sales} setSales={setSales} handleDelete={handleDelete} />
                 </Box>
                 <Box sx={{textAlign: "center", marginBottom: 3}} visibility={verMasVisibility}>
                     <Button variant="contained" onClick={handleVerMas}>Ver más</Button>
