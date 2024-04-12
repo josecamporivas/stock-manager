@@ -16,10 +16,10 @@ class Products:
                 return products
 
     @staticmethod
-    async def get_id_name_cost():
+    async def get_id_name_cost_price():
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT product_id, name, cost FROM products WHERE disabled=0')
+                cursor.execute('SELECT product_id, name, cost, price FROM products WHERE disabled=0')
                 return cursor.fetchall()
 
     @staticmethod
