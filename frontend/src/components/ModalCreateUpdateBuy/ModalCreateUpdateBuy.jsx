@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { getAllSuppliers } from '../../utils/queries/supplier';
-import { getProductsIdNameCost } from '../../utils/queries/products';
+import { getProductsIdNameCostPrice } from '../../utils/queries/products';
 
 import './ModalCreateBuy.css'
 import { createBuy, updateBuy } from '../../utils/queries/buys';
@@ -50,7 +50,7 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
   }
 
   const fetchProductsIdAndName = async () => {
-    const data = await getProductsIdNameCost()
+    const data = await getProductsIdNameCostPrice()
     if(data.error) {
       console.log(data.error)
       return
@@ -133,6 +133,7 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
 
     if(buyInfo.buy.supplier_id === null || products.length === 0) {
       // TODO: handle error: Not all fields are filled
+      return
     }
 
     if(mode === 'create') {
@@ -144,15 +145,6 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
       handleSubmitUpdate(buyInfo.buy.buy_id, buyInfo.buy.supplier_id, products)
       return
     }
-    
-    /* 
-    const result = await createBuy({supplier_id, listProducts: products})
-    if(result.error) {
-      //TODO: handle error
-      return
-    }
-
-    setBuys((buys) => [result, ...buys]) */
   }
 
   const addFields = (e) => {
@@ -194,7 +186,6 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
                           if(reason === "selectOption"){
                             handleChange(index, 'cost', products.find(product => product.product_id === value.id)?.cost)
                             handleChange(index, 'name', value.label)
-                            e.target.parentElement.parentElement.parentElement.nextSibling.nextSibling.querySelector('input').label
                           }
                         }}
                         renderInput={(params) => <TextField {...params} name='name' label="Producto" />}
@@ -226,7 +217,7 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
                   </div>
                 )
             })}
-            <Button variant="outlined" onClick={addFields}>Añadir producto</Button>
+            <Button variant="outlined" onClick={addFields} sx={{display: mode === 'update' ? 'none': 'block'}}>Añadir producto</Button>
             <Button type="submit" variant="contained" 
               sx={{backgroundColor: '#0F4C75', color: 'white'}}
               endIcon={<SendIcon />}>
