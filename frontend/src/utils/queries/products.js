@@ -15,8 +15,8 @@ export async function getAllProducts({page = 1, size = 10} = {}) {
 }
 
 
-export async function getProductsIdNameCost() {
-    const response = await fetch(`http://localhost:8000/products/id-name-cost`, {
+export async function getProductsIdNameCostPrice() {
+    const response = await fetch(`http://localhost:8000/products/id-name-cost-price`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

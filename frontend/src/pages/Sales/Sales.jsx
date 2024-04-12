@@ -5,6 +5,7 @@ import { Box, Button, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { deleteSale, getAllSales } from "../../utils/queries/sales";
 import TableSales from "../../components/TableSales/TableSales";
+import ModalCreateUpdateSale from "../../components/ModalCreateUpdateSale/ModalCreateUpdateSale";
 
 export default function Sales() {
     const [sales, setSales] = useState([])
@@ -61,8 +62,8 @@ export default function Sales() {
                 <Box sx={{textAlign: "center"}}>
                     <h1 className="title color-primary">VENTAS</h1>
                     <div style={{display:'flex', flexDirection: 'row', justifyContent: 'center', columnGap: '5px'}}>
-                        {/* <ModalCreateUpdateBuy styleContainer={{marginBottom: 10}} setBuys={setBuys} /> */}
-                        {/* <ModalCreateSupplier /> */}
+                        <ModalCreateUpdateSale styleContainer={{marginBottom: 10}} setSales={setSales} />
+                        {/* <ModalCreateSupplier /> */}        {/* TODO: implement create clients */}
                     </div>
                 </Box>
                 <Box sx={{marginBottom: 1}}>

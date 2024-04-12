@@ -15,7 +15,7 @@ function Row({invoice, lines, setSales, handleDelete}) {
     
     const saleInfoData = {
       invoice,
-      lines: lines.map(line => ({name: line.product.name, price: line.price, amount: line.amount}))
+      products: lines.map(line => ({name: line.product.name, price: line.price, amount: line.amount}))
     }
   
     return (
