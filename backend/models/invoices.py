@@ -57,7 +57,7 @@ class Invoices:
             with connection.cursor() as cursor:
                 cursor.execute('INSERT INTO invoices (date, user_id, client_id) VALUES (%s, %s, %s)',
                                (datetime.now(), data.user_id, data.client_id))
-                connection.commit()
+                # connection.commit()
                 invoice_id = cursor.lastrowid
 
                 for i, line in enumerate(lines):
@@ -83,7 +83,7 @@ class Invoices:
 
                     cursor.execute('UPDATE products SET stock = stock - %s WHERE product_id = %s',
                                    (line.amount, line.product_id))
-                    connection.commit()
+                connection.commit()
                 return await Invoices.get(invoice_id)
 
     @staticmethod
