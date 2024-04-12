@@ -5,3 +5,4 @@
 - [ ] Mostrar notificaciones
 - [ ] Generar factura con cada venta
 - [ ] FIX: inicio de sesión con usuarios eliminados (desactivados) 
+- [ ] Crear archivo requirements.txt for FastAPI backend
