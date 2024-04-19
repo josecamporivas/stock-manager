@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteSale, getAllSales } from "../../utils/queries/sales";
 import TableSales from "../../components/TableSales/TableSales";
 import ModalCreateUpdateSale from "../../components/ModalCreateUpdateSale/ModalCreateUpdateSale";
+import ModalCreateClient from "../../components/ModalCreateClient/ModalCreateClient";
 
 export default function Sales() {
     const [sales, setSales] = useState([])
@@ -39,7 +40,6 @@ export default function Sales() {
         }
         if(data.length < 10) {
             setVerMasVisibility("hidden")
-            return
         }
         setBuys([...sales, ...data])
         setPage(page + 1)
@@ -63,7 +63,7 @@ export default function Sales() {
                     <h1 className="title color-primary">VENTAS</h1>
                     <div style={{display:'flex', flexDirection: 'row', justifyContent: 'center', columnGap: '5px'}}>
                         <ModalCreateUpdateSale styleContainer={{marginBottom: 10}} setSales={setSales} />
-                        {/* <ModalCreateSupplier /> */}        {/* TODO: implement create clients */}
+                        <ModalCreateClient />
                     </div>
                 </Box>
                 <Box sx={{marginBottom: 1}}>
