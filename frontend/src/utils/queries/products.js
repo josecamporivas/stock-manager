@@ -47,6 +47,22 @@ export async function getAllUnitMeasures() {
     return data
 }
 
+export async function getAllCategories() {
+    const response = await fetch(`http://localhost:8000/products/categories`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if(!response.ok){
+        return {error: response.statusText}
+    }
+
+    const data = await response.json()
+    return data
+}
+
 
 export async function createProduct(productData) {
     console.log(productData)

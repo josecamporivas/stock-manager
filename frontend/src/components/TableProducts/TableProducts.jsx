@@ -21,6 +21,7 @@ export default function TableProducts({products, setProducts, handleDelete}) {
                 {products.map((product) => (
                     <TableRow key={product.product_id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                         <TableCell component="th" scope="row">{product.name}</TableCell>
+                        <TableCell align="center">{product.category.category_name}</TableCell>
                         <TableCell align="center">{product.cost}</TableCell>
                         <TableCell align="center">{product.price}</TableCell>
                         <TableCell align="center">{product.stock} {product.unit.abbreviation}</TableCell>

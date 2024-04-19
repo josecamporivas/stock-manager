@@ -6,6 +6,7 @@ class ProductCreate(BaseModel):
     price: float
     cost: float
     stock: float
+    category_id: int
     unit_measure_id: int
     unit_limit: int
 

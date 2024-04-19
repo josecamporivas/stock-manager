@@ -18,6 +18,10 @@ async def get_id_name():
 async def get_unit_measures():
     return await Products.get_unit_measures()
 
+@router.get("/categories")
+async def get_all_product_categories():
+    return await Products.get_all_product_categories()
+
 @router.get("/{id}")
 async def get_one(id: int):
     product = await Products.get(id)

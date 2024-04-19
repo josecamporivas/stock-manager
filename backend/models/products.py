@@ -30,6 +30,13 @@ class Products:
                 return cursor.fetchall()
 
     @staticmethod
+    async def get_all_product_categories():
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT * FROM product_categories')
+                return cursor.fetchall()
+
+    @staticmethod
     async def get(id_product: int):
         with connect() as connection:
             with connection.cursor() as cursor:
@@ -40,14 +47,18 @@ class Products:
                 cursor.execute('SELECT * FROM unit_measures WHERE unit_measure_id = %s', (unit_id,))
                 result['unit'] = cursor.fetchone()
                 del result['unit_measure_id']
+
+                cursor.execute('SELECT * FROM product_categories WHERE category_id = %s', (result['category_id'],))
+                result['category'] = cursor.fetchone()
+                del result['category_id']
                 return result
 
     @staticmethod
     async def create(data: ProductCreate):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('INSERT INTO products (name, description, price, cost, stock, unit_measure_id, unit_limit) VALUES (%s, %s, %s, %s, %s, %s, %s)',
-                               (data.name, data.description, data.price, data.cost, data.stock, data.unit_measure_id, data.unit_limit))
+                cursor.execute('INSERT INTO products (name, description, price, cost, stock, category_id, unit_measure_id, unit_limit) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
+                               (data.name, data.description, data.price, data.cost, data.stock, data.category_id, data.unit_measure_id, data.unit_limit))
                 connection.commit()
                 product_id = cursor.lastrowid
                 return await Products.get(product_id)

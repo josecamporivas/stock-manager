@@ -24,6 +24,12 @@ CREATE TABLE `unit_measures` (
   `full_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Table structure for `PRODUCT CATEGORIES`
+CREATE TABLE `product_categories`(
+	`category_id` int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`category_name` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- Table structure for table `PRODUCTS`
 CREATE TABLE `products` (
   `product_id` int unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -32,6 +38,7 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `cost` decimal(10,2) NOT NULL,
   `stock` decimal(15,3) NOT NULL,
+  `category_id` int unsigned NOT NULL,
   `unit_measure_id` int unsigned NOT NULL,
   `unit_limit` smallint unsigned NOT NULL,
   `disabled` tinyint(1) NOT NULL DEFAULT 0,

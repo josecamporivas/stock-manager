@@ -10,31 +10,38 @@ INSERT INTO `unit_measures` (`abbreviation`, `full_name`) VALUES
 ('m2', 'metro cuadrado'),
 ('m3', 'metro cúbico');
 
-INSERT INTO `products` (`name`, `description`, `price`, `cost`, `stock`, `unit_measure_id`, `unit_limit`) VALUES
-('Manzana', 'Manzanas de todo tipo', 2.00, 1.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-('Pera', 'Peras de todo tipo', 1.50, 0.75, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-('Plátano', 'Plátanos de todo tipo', 3.00, 1.50, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-('Naranja', 'Naranjas de todo tipo', 2.50, 1.25, 125, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
-('Uva', 'Uvas de todo tipo', 4.00, 2.00, 150, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
-('Fresa', 'Fresas de todo tipo', 5.00, 2.50, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-('Sandía', 'Sandías de todo tipo', 6.00, 3.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-('Melón', 'Melones de todo tipo', 7.00, 3.50, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-('Pimiento', 'Pimientos de todo tipo', 2.00, 1.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-('Tomate', 'Tomates de todo tipo', 1.50, 0.75, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-('Pepino', 'Pepinos de todo tipo', 3.00, 1.50, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-('Lechuga', 'Lechugas de todo tipo', 2.50, 1.25, 125, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
-('Espinaca', 'Espinacas de todo tipo', 4.00, 2.00, 150, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
-('Coliflor', 'Coliflores de todo tipo', 5.00, 2.50, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-('Brócoli', 'Brócolis de todo tipo', 6.00, 3.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-('Zanahoria', 'Zanahorias de todo tipo', 7.00, 3.50, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-('Patata', 'Patatas de todo tipo', 2.00, 1.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-('Cebolla', 'Cebollas de todo tipo', 1.50, 0.75, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-('Ajo', 'Ajos de todo tipo', 3.00, 1.50, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-('Calabaza', 'Calabazas de todo tipo', 2.50, 1.25, 125, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
-('Calabacín', 'Calabacines de todo tipo', 4.00, 2.00, 150, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
-('Berenjena', 'Berenjenas de todo tipo', 5.00, 2.50, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-('Champiñón', 'Champiñones de todo tipo', 6.00, 3.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-('Seta', 'Setas de todo tipo', 7.00, 3.50, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7);
+INSERT INTO `product_categories` (`category_name`) VALUES
+('Fruta y verdura'),
+('Carne y pescado'),
+('Pan y bollos'),
+('Bebidas y snacks'),
+('Limpieza e higiene');
+
+INSERT INTO `products` (`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES
+('Manzana', 'Manzanas de todo tipo', 2.00, 1.00, 100, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+('Pera', 'Peras de todo tipo', 1.50, 0.75, 75, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+('Plátano', 'Plátanos de todo tipo', 3.00, 1.50, 50, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+('Naranja', 'Naranjas de todo tipo', 2.50, 1.25, 125, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
+('Uva', 'Uvas de todo tipo', 4.00, 2.00, 150, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
+('Fresa', 'Fresas de todo tipo', 5.00, 2.50, 100, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+('Sandía', 'Sandías de todo tipo', 6.00, 3.00, 50, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+('Melón', 'Melones de todo tipo', 7.00, 3.50, 75, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+('Pimiento', 'Pimientos de todo tipo', 2.00, 1.00, 100, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+('Tomate', 'Tomates de todo tipo', 1.50, 0.75, 75, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+('Pepino', 'Pepinos de todo tipo', 3.00, 1.50, 50, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+('Lechuga', 'Lechugas de todo tipo', 2.50, 1.25, 125, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
+('Espinaca', 'Espinacas de todo tipo', 4.00, 2.00, 150, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
+('Coliflor', 'Coliflores de todo tipo', 5.00, 2.50, 100, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+('Brócoli', 'Brócolis de todo tipo', 6.00, 3.00, 50, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+('Zanahoria', 'Zanahorias de todo tipo', 7.00, 3.50, 75, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+('Patata', 'Patatas de todo tipo', 2.00, 1.00, 100, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+('Cebolla', 'Cebollas de todo tipo', 1.50, 0.75, 75, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+('Ajo', 'Ajos de todo tipo', 3.00, 1.50, 50, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+('Calabaza', 'Calabazas de todo tipo', 2.50, 1.25, 125, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
+('Calabacín', 'Calabacines de todo tipo', 4.00, 2.00, 150, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
+('Berenjena', 'Berenjenas de todo tipo', 5.00, 2.50, 100, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+('Champiñón', 'Champiñones de todo tipo', 6.00, 3.00, 50, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+('Seta', 'Setas de todo tipo', 7.00, 3.50, 75, (select category_id from product_categories where category_name = 'Fruta y verdura'),(select unit_measure_id from unit_measures where abbreviation = 'kg'), 7);
 
 INSERT INTO `suppliers` (`name`, `phone`) VALUES
 ('Frutas y Verduras S.A.', '123456789');
@@ -100,17 +107,17 @@ INSERT INTO `buy_contains_product` VALUES
 ((select buy_id from buys where date = '2023-11-07 17:05:54'), (select product_id from products where name = 'Seta'), 3.50, 75);
 
 -- Products from Carnicería S.L.
-INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `unit_measure_id`, `unit_limit`) VALUES 
-("Carne de vacuno", "Carne de vacuno de origen español", 10.00, 5.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-("Carne de cerdo", "Carne de cerdo de origen español", 8.00, 4.00, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-("Carne de pollo", "Carne de pollo de origen español", 6.00, 3.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-("Carne de cordero", "Carne de cordero de origen suizo", 12.00, 6.00, 125, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
-("Carne de conejo", "Carne de conejo de origen español", 14.00, 7.00, 150, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
-("Carne de pavo", "Carne de pavo de origen español", 16.00, 8.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-("Carne de pato", "Carne de pato de origen francés", 18.00, 9.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-("Carne de avestruz", "Carne de avestruz de origen australiano", 20.00, 10.00, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-("Carne de caballo", "Carne de caballo de origen peruano", 22.00, 11.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-("Carne de buey", "Carne de buey de origen canadiense", 24.00, 12.00, 125, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12);
+INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES 
+("Carne de vacuno", "Carne de vacuno de origen español", 10.00, 5.00, 100, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+("Carne de cerdo", "Carne de cerdo de origen español", 8.00, 4.00, 75, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+("Carne de pollo", "Carne de pollo de origen español", 6.00, 3.00, 50, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+("Carne de cordero", "Carne de cordero de origen suizo", 12.00, 6.00, 125, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
+("Carne de conejo", "Carne de conejo de origen español", 14.00, 7.00, 150, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
+("Carne de pavo", "Carne de pavo de origen español", 16.00, 8.00, 100, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+("Carne de pato", "Carne de pato de origen francés", 18.00, 9.00, 50, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+("Carne de avestruz", "Carne de avestruz de origen australiano", 20.00, 10.00, 75, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+("Carne de caballo", "Carne de caballo de origen peruano", 22.00, 11.00, 100, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+("Carne de buey", "Carne de buey de origen canadiense", 24.00, 12.00, 125, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12);
 
 INSERT INTO `suppliers` (`name`, `phone`) VALUES
 ('Carnicería S.L.', '987654321');
@@ -146,17 +153,17 @@ INSERT INTO `buy_contains_product` VALUES
 ((select buy_id from buys where date = '2023-11-04 14:05:58'), (select product_id from products where name = 'Carne de buey'), 12.00, 125);
 
 -- Products from Pescadería S.L.
-INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `unit_measure_id`, `unit_limit`) VALUES
-("Bacalao", "Bacalao de origen noruego", 10.00, 5.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-("Salmón", "Salmón de origen noruego", 8.00, 4.00, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-("Atún", "Atún de origen español", 6.00, 3.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-("Merluza", "Merluza de origen español", 12.00, 6.00, 125, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
-("Lubina", "Lubina de origen español", 14.00, 7.00, 150, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
-("Dorada", "Dorada de origen español", 16.00, 8.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-("Sardina", "Sardina de origen español", 18.00, 9.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
-("Boquerón", "Boquerón de origen español", 20.00, 10.00, 75, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
-("Anchoa", "Anchoa de origen español", 22.00, 11.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
-("Pulpo", "Pulpo de origen español", 24.00, 12.00, 125, (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12);
+INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES
+("Bacalao", "Bacalao de origen noruego", 10.00, 5.00, 100, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+("Salmón", "Salmón de origen noruego", 8.00, 4.00, 75, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+("Atún", "Atún de origen español", 6.00, 3.00, 50, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+("Merluza", "Merluza de origen español", 12.00, 6.00, 125, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12),
+("Lubina", "Lubina de origen español", 14.00, 7.00, 150, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 15),
+("Dorada", "Dorada de origen español", 16.00, 8.00, 100, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+("Sardina", "Sardina de origen español", 18.00, 9.00, 50, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 5),
+("Boquerón", "Boquerón de origen español", 20.00, 10.00, 75, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 7),
+("Anchoa", "Anchoa de origen español", 22.00, 11.00, 100, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
+("Pulpo", "Pulpo de origen español", 24.00, 12.00, 125, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 12);
 
 INSERT INTO `suppliers` (`name`, `phone`) VALUES
 ('Pescadería S.L.', '123123123');
@@ -193,13 +200,13 @@ INSERT INTO `buy_contains_product` VALUES
 
 
 -- Products from Panadería S.L.
-INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `unit_measure_id`, `unit_limit`) VALUES
-("Barra de pan artesano", "Barra de pan artesano con masa madre", 1.00, 0.50, 100, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
-("Chapata", "Chapata con harina española", 1.50, 0.75, 75, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 7),
-("Barra de pan normal", "Barra de pan normal", 2.00, 1.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 5),
-("Pan de espelta", "Pan de espelta artesanal", 2.50, 1.25, 125, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 12),
-("Pan integral", "Pan integral con masa madre", 3.00, 1.50, 150, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 15),
-("Pan de maíz", "Pan de maíz de origen español", 3.50, 1.75, 100, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10);
+INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES
+("Barra de pan artesano", "Barra de pan artesano con masa madre", 1.00, 0.50, 100, (select category_id from product_categories where category_name = 'Pan y bollos'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
+("Chapata", "Chapata con harina española", 1.50, 0.75, 75, (select category_id from product_categories where category_name = 'Pan y bollos'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 7),
+("Barra de pan normal", "Barra de pan normal", 2.00, 1.00, 50, (select category_id from product_categories where category_name = 'Pan y bollos'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 5),
+("Pan de espelta", "Pan de espelta artesanal", 2.50, 1.25, 125, (select category_id from product_categories where category_name = 'Pan y bollos'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 12),
+("Pan integral", "Pan integral con masa madre", 3.00, 1.50, 150, (select category_id from product_categories where category_name = 'Pan y bollos'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 15),
+("Pan de maíz", "Pan de maíz de origen español", 3.50, 1.75, 100, (select category_id from product_categories where category_name = 'Pan y bollos'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10);
 
 INSERT INTO `suppliers` (`name`, `phone`) VALUES
 ('Panadería S.L.', '456456456');
@@ -227,17 +234,17 @@ INSERT INTO `buy_contains_product` VALUES
 ((select buy_id from buys where date = '2023-11-04 15:04:58'), (select product_id from products where name = 'Pan de maíz'), 1.75, 100);
 
 -- Products from Droguería S.L.
-INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `unit_measure_id`, `unit_limit`) VALUES
-("Detergente", "Detergente para la ropa", 10.00, 5.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
-("Suavizante", "Suavizante para la ropa", 8.00, 4.00, 75, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 7),
-("Lejía", "Lejía para la ropa", 6.00, 3.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 5),
-("Limpiador", "Limpiador para la casa", 12.00, 6.00, 125, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 12),
-("Desinfectante", "Desinfectante para la casa", 14.00, 7.00, 150, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 15),
-("Ambientador", "Ambientador para la casa", 16.00, 8.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
-("Insecticida", "Insecticida para la casa", 18.00, 9.00, 50, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 5),
-("Repelente", "Repelente para la casa", 20.00, 10.00, 75, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 7),
-("Cera", "Cera para la casa", 22.00, 11.00, 100, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
-("Fregasuelos", "Fregasuelos para la casa", 24.00, 12.00, 125, (select unit_measure_id from unit_measures where abbreviation = 'ud'), 12);
+INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES
+("Detergente", "Detergente para la ropa", 10.00, 5.00, 100, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
+("Suavizante", "Suavizante para la ropa", 8.00, 4.00, 75, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 7),
+("Lejía", "Lejía para la ropa", 6.00, 3.00, 50, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 5),
+("Limpiador", "Limpiador para la casa", 12.00, 6.00, 125, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 12),
+("Desinfectante", "Desinfectante para la casa", 14.00, 7.00, 150, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 15),
+("Ambientador", "Ambientador para la casa", 16.00, 8.00, 100, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
+("Insecticida", "Insecticida para la casa", 18.00, 9.00, 50, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 5),
+("Repelente", "Repelente para la casa", 20.00, 10.00, 75, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 7),
+("Cera", "Cera para la casa", 22.00, 11.00, 100, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
+("Fregasuelos", "Fregasuelos para la casa", 24.00, 12.00, 125, (select category_id from product_categories where category_name = 'Limpieza e higiene'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 12);
 
 INSERT INTO `suppliers` (`name`, `phone`) VALUES
 ('Droguería S.L.', '789789789');

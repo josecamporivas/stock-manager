@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, TextField } from "@mui/material";
 import { useState } from "react";
-import { createProduct, getAllUnitMeasures, updateProduct } from "../../utils/queries/products";
+import { createProduct, getAllCategories, getAllUnitMeasures, updateProduct } from "../../utils/queries/products";
 
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -24,6 +24,9 @@ const productDataDefault = {
     price: '',
     stock: '',
     unit_limit: '',
+    category: {
+        category_id: ''
+    },
     unit: {
         unit_measure_id: ''
     }
@@ -33,15 +36,27 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
     const [open, setOpen] = useState(false)
     const [productData, setProductData] = useState(productDataProps)
     const [unitMeasures, setUnitMeasures] = useState([])
+    const [categories, setCategories] = useState([])
 
     const handleOpen = async () => {
-        const data = await getAllUnitMeasures()
-        if(data.error) {
-            //TODO: handle error
+        Promise.all([getAllUnitMeasures(), getAllCategories()]).then(([units, categs]) => {
+            if(units.error || categs.error) {
+                //TODO: handle error (i think its better to do it separately, by the moment stays like this)
+                return
+            }
+            setOpen(true)
+            setUnitMeasures(units)
+            setCategories(categs)
+        })
+/*         const units = await getAllUnitMeasures()
+        const categs = await getAllCategories()
+        if(units.error || categs.error) {
+            //TODO: handle error (i think its better to do it separately, by the moment stays like this)
             return
         }
         setOpen(true)
-        setUnitMeasures(data)
+        setUnitMeasures(units)
+        setCategories(categs) */
     }
     const handleClose = () => setOpen(false)
 
@@ -52,11 +67,18 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
             setProductData({...productData, unit: {unit_measure_id: e.target.value}})
             return
         }
+
+        if(e.target.name === 'category_id') {
+            //TODO
+            console.log(e.target.value)
+            setProductData({...productData, category: {category_id: e.target.value}})
+            return
+        }
         setProductData({...productData, [e.target.name]: e.target.value})
     }
 
     const createProductHandler = async () => {
-        const productDataCreate = {...productData, unit_measure_id: productData.unit.unit_measure_id}
+        const productDataCreate = {...productData, unit_measure_id: productData.unit.unit_measure_id, category_id: productData.category.category_id}
         productDataCreate.unit = undefined
 
         const result = await createProduct(productDataCreate)
@@ -69,7 +91,7 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
     }
 
     const updateProductHandler = async () => {
-        const productDataUpdate = {...productData, unit_measure_id: productData.unit.unit_measure_id}
+        const productDataUpdate = {...productData, unit_measure_id: productData.unit.unit_measure_id, category_id: productData.category.category_id}
 
         const result = await updateProduct(productDataUpdate)
         if(result.error) {
@@ -80,9 +102,8 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
         setProducts(products => [...products.filter(product => product.product_id !== productData.product_id), result])
     }
 
-    const handleSubmit = async (e) => {     //TODO: manage submit
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log('submit')
 
         if(mode === 'create') {
             await createProductHandler()
@@ -120,7 +141,7 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
                         <TextField size='small' name='unit_limit' label="Límite de alerta" value={productData.unit_limit}
                                 onChange={handleInputChange}
                             />
-                        <FormControl sx={{ m: 1, minWidth: '25ch' }} size="small">
+                        <FormControl sx={{minWidth: '25ch' }} size="small">
                             <InputLabel id="select-label-unit-measures">Unidades</InputLabel>
                             <Select
                                 labelId="select-label-unit-measures"
@@ -131,6 +152,20 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
                             >
                                 {unitMeasures.map((unit) => (
                                     <MenuItem key={unit.unit_measure_id} value={unit.unit_measure_id}>{unit.abbreviation}</MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                        <FormControl sx={{minWidth: '25ch' }} size="small">
+                            <InputLabel id="select-label-categories">Categoría</InputLabel>
+                            <Select
+                                labelId="select-label-categories"
+                                value={productData.category.category_id}
+                                label="Categorías"
+                                name="category_id"
+                                onChange={handleInputChange}
+                            >
+                                {categories.map((category) => (
+                                    <MenuItem key={category.category_id} value={category.category_id}>{category.category_name}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
