@@ -30,7 +30,6 @@ export default function Buys() {
         }
         if(data.length < 10) {
             setVerMasVisibility("hidden")
-            return
         }
         setBuys([...buys, ...data])
         setPage(page + 1)
