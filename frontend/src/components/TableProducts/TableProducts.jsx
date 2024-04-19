@@ -10,8 +10,9 @@ export default function TableProducts({products, setProducts, handleDelete}) {
                 <TableHead>
                 <TableRow sx={{backgroundColor: '#DDD'}}>
                     <TableCell>Nombre</TableCell>
-                    <TableCell align="center">Coste</TableCell>
-                    <TableCell align="center">Precio</TableCell>
+                    <TableCell align="center">Categoría</TableCell>
+                    <TableCell align="center">Precio de compra</TableCell>
+                    <TableCell align="center">Precio de venta</TableCell>
                     <TableCell align="center">Existencias</TableCell>
                     <TableCell align="center">Límite de alerta</TableCell>
                     <TableCell align="center">Acciones</TableCell>
