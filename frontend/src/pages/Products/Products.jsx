@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import { deleteProduct, getAllProducts } from "../../utils/queries/products";
@@ -7,6 +7,8 @@ import ModalCreateUpdateProduct from "../../components/ModalCreateUpdateProduct/
 
 export default function Products() {
     const [products, setProducts] = useState([])
+    const [page, setPage] = useState(1)
+    const [verMasVisibility, setVerMasVisibility] = useState("visible")
 
     const fetchAllProducts = async () => {
         const data = await getAllProducts()
@@ -16,6 +18,19 @@ export default function Products() {
         }
         console.log(data)
         setProducts(data)
+    }
+
+    const handleVerMas = async () => {
+        const data = await getAllProducts({page: page + 1})
+        if(data.error) {
+            //TODO: handle error
+            return
+        }
+        if(data.length < 10) {
+            setVerMasVisibility("hidden")
+        }
+        setProducts([...products, ...data])
+        setPage(page + 1)
     }
 
     const handleDelete = (productId) => async () => {
@@ -44,6 +59,9 @@ export default function Products() {
                 </Box>
                 <Box sx={{marginBottom: 1}}>
                     <TableProducts products={products} setProducts={setProducts} handleDelete={handleDelete} />
+                </Box>
+                <Box sx={{textAlign: "center", marginBottom: 3}} visibility={verMasVisibility}>
+                    <Button variant="contained" onClick={handleVerMas}>Ver más</Button>
                 </Box>
             </Container>
         </>
