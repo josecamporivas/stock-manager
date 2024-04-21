@@ -52,6 +52,22 @@ class Invoices:
                 return result
 
     @staticmethod
+    async def get_stats(year: int):
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                result = []
+                for month in range(1, 13):
+                    cursor.execute(
+                        'SELECT count(DISTINCT invoices.invoice_id) as "num_invoices", COALESCE(SUM(amount * price), 0) as "total_cost_sales" FROM invoice_lines JOIN invoices ON invoice_lines.invoice_id = invoices.invoice_id WHERE YEAR(date) = %s AND MONTH(date) = %s',
+                        (year, month))
+                    month_info = cursor.fetchone()
+                    month_info['month'] = month
+                    month_info['year'] = year
+                    result.append(month_info)
+
+                return result
+
+    @staticmethod
     async def create(data: InvoiceCreate, lines: list[InvoiceLineCreate]):
         with connect() as connection:
             with connection.cursor() as cursor:

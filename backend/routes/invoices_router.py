@@ -10,6 +10,10 @@ router = APIRouter(prefix="/invoices", tags=["invoices"])
 async def get_all(page: int = 1, size: int = 5):
     return await Invoices.all(page, size)
 
+@router.get("/stats/{year}")
+async def get_stats(year: int):
+    return await Invoices.get_stats(year)
+
 @router.get("/{id}")
 async def get_by_id(id: int):
     invoice = await Invoices.get(id)
