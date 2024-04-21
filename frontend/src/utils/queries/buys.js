@@ -16,6 +16,22 @@ export async function getAllBuys({page = 1, size = 10} = {}) {
     return data
 }
 
+export async function getBuysStats(year = new Date().getFullYear()) {
+    const response = await fetch(`http://localhost:8000/buys/stats/${year}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if(!response.ok){
+        return {error: response.statusText}
+    }
+
+    const data = await response.json()
+    return data
+}
+
 export async function createBuy({supplier_id, listProducts}) {
     const dataMe = await getCurrentInfoUser()
 

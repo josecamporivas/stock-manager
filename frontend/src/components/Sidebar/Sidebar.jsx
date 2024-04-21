@@ -4,6 +4,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import StoreIcon from '@mui/icons-material/Store';
 import SellIcon from '@mui/icons-material/Sell';
+import HomeIcon from '@mui/icons-material/Home';
 import { Box, Button, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,11 @@ const OPTIONS_SIDEBAR = [
         name: "Tu perfil",
         icon: <PersonIcon />,
         path: "/profile"
+    },
+    {
+        name: "Página principal",
+        icon: <HomeIcon />,
+        path: "/dashboard"
     },
     {
         name: "Gestión usuarios",
