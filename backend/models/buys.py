@@ -42,6 +42,28 @@ class Buys:
                 return result
 
     @staticmethod
+    async def get_stats(year: int):
+        with connect() as connection:
+            with connection.cursor() as cursor:
+                result = []
+                for month in range(1, 13):
+                    cursor.execute('SELECT count(DISTINCT buys.buy_id) as "num_buys", COALESCE(SUM(amount * cost), 0) as "total_cost_buys" FROM buy_contains_product JOIN buys ON buy_contains_product.buy_id = buys.buy_id WHERE YEAR(date) = %s AND MONTH(date) = %s', (year, month))
+                    month_info = cursor.fetchone()
+                    month_info['month'] = month
+                    month_info['year'] = year
+                    result.append(month_info)
+
+                return result
+
+                # cursor.execute('SELECT YEAR(date) as "year", MONTH(date) as "month" FROM buys WHERE YEAR(date) = %s AND disabled=0 GROUP BY MONTH(date)', (year,))
+                # result = cursor.fetchall()
+                #
+                # for item in result:
+                #     cursor.execute('SELECT COUNT(*) as "num_line_buys", SUM(amount * cost) as "total_cost_sales" FROM buy_contains_product JOIN buys ON buy_contains_product.buy_id = buys.buy_id WHERE YEAR(date) = %s AND MONTH(date) = %s', (item['year'], item['month']))
+                #     item.update(cursor.fetchone())
+                # return result
+
+    @staticmethod
     async def create(buy: BuyCreate, products: list[BuyContainsProductCreate]):
         with connect() as connection:
             with connection.cursor() as cursor:
