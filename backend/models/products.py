@@ -67,8 +67,8 @@ class Products:
     async def update(id_product: int, data: ProductCreate):
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('UPDATE products SET name=%s, description=%s, price=%s, cost=%s, stock=%s, unit_measure_id=%s, unit_limit=%s WHERE product_id=%s',
-                               (data.name, data.description, data.price, data.cost, data.stock, data.unit_measure_id, data.unit_limit, id_product))
+                cursor.execute('UPDATE products SET name=%s, description=%s, price=%s, cost=%s, stock=%s, category_id=%s, unit_measure_id=%s, unit_limit=%s WHERE product_id=%s',
+                               (data.name, data.description, data.price, data.cost, data.stock, data.category_id, data.unit_measure_id, data.unit_limit, id_product))
                 connection.commit()
                 return await Products.get(id_product)
 
