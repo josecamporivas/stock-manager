@@ -3,11 +3,19 @@ from fastapi import APIRouter, HTTPException
 from models.products import Products
 from models.suppliers import Suppliers
 from schemas.Product import ProductCreate
+from utils.auth import get_current_user
+from typing import Annotated
+from fastapi import Depends
+from schemas.User import User
 
 router = APIRouter(prefix="/products", tags=["products"])
 
+bad_role_exception = HTTPException(status_code=403, detail="Forbidden")
+
 @router.get("/")
-async def get_all(page: int = 1, size: int = 10):
+async def get_all(current_user: Annotated[User, Depends(get_current_user)], page: int = 1, size: int = 10):
+    if current_user.role != "ADMIN" and current_user.role != "BUY_MANAGER":
+        raise bad_role_exception
     return await Products.all(page, size)
 
 @router.get("/id-name-cost-price")
@@ -34,14 +42,21 @@ async def get_suppliers(id: int):
     return await Suppliers.get_suppliers_of_product(id)
 
 @router.post("/", status_code=201)
-async def create(product: ProductCreate):
+async def create(current_user: Annotated[User, Depends(get_current_user)], product: ProductCreate):
+    if current_user.role != "ADMIN" and current_user.role != "BUY_MANAGER":
+        raise bad_role_exception
     return await Products.create(product)
 
 @router.put("/{id}")
-async def update(id: int, product: ProductCreate):
+async def update(current_user: Annotated[User, Depends(get_current_user)], id: int, product: ProductCreate):
+    if current_user.role != "ADMIN" and current_user.role != "BUY_MANAGER":
+        raise bad_role_exception
     return await Products.update(id, product)
 
+
 @router.delete("/{id}", status_code=204)
-async def delete(id: int):
+async def delete(current_user: Annotated[User, Depends(get_current_user)], id: int):
+    if current_user.role != "ADMIN" and current_user.role != "BUY_MANAGER":
+        raise bad_role_exception
     return await Products.delete(id)
 

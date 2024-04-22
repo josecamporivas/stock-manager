@@ -1,11 +1,11 @@
 - [ ] Mostrar mensajes de error
 - [ ] Añadir validación a los campos de los formularios
-- [ ] Gestionar bien los inicios de sesión para hacer acciones sobre el backend
 - [ ] Mostrar las funcionalidades según el tipo de usuario que se conecte
 - [ ] Mostrar notificaciones
 - [ ] Generar factura con cada venta
 - [ ] Crear archivo requirements.txt for FastAPI backend
 
+- [x] Gestionar bien los inicios de sesión para hacer acciones sobre el backend
 - [x] Añadir boton Logout
 - [x] FIX: inicio de sesión con usuarios eliminados (desactivados) 
 - [x] Añadir boton "Ver más" a los productos
