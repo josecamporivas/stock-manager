@@ -63,7 +63,7 @@ class Users:
     async def authenticate(username: str, password: str) -> User | None:
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+                cursor.execute('SELECT * FROM users WHERE username = %s and disabled = 0', (username,))
                 user = cursor.fetchone()
                 if not user:
                     return None
