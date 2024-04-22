@@ -1,8 +1,10 @@
 export async function getAllUsers() {
+    const token = sessionStorage.getItem("token")
     const result = await fetch(`http://localhost:8000/users/`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
     })
 
@@ -32,29 +34,15 @@ export async function getCurrentInfoUser() {
     }
 
     return await me.json()
-    
-    
-   
-/*     const result = await fetch(`http://localhost:8000/users/me`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-        }
-    })
-
-    if(!result.ok) {
-        return {error: 'Error al obtener la información del usuario'}
-    }
-
-    return await result.json() */
 }
 
 export async function createUser(data) {
+    const token = sessionStorage.getItem("token")
     const result = await fetch(`http://localhost:8000/users`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(data)
     })
@@ -68,11 +56,12 @@ export async function createUser(data) {
 
 
 export async function updateUser(data) {
+    const token = sessionStorage.getItem("token")
     const result = await fetch(`http://localhost:8000/users/${data.user_id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(data)
     })
@@ -85,10 +74,12 @@ export async function updateUser(data) {
 }
 
 export async function deleteUser(user_id) {
+    const token = sessionStorage.getItem("token")
     const result = await fetch(`http://localhost:8000/users/${user_id}`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
     })
 

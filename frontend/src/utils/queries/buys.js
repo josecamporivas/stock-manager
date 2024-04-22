@@ -1,10 +1,12 @@
 import { getCurrentInfoUser } from "./user"
 
 export async function getAllBuys({page = 1, size = 10} = {}) {
+    const token = sessionStorage.getItem("token")
     const response = await fetch(`http://localhost:8000/buys/?page=${page}&size=${size}`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
     })
 
@@ -17,10 +19,12 @@ export async function getAllBuys({page = 1, size = 10} = {}) {
 }
 
 export async function getBuysStats(year = new Date().getFullYear()) {
+    const token = sessionStorage.getItem("token")
     const response = await fetch(`http://localhost:8000/buys/stats/${year}`, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
     })
 
@@ -33,6 +37,7 @@ export async function getBuysStats(year = new Date().getFullYear()) {
 }
 
 export async function createBuy({supplier_id, listProducts}) {
+    const token = sessionStorage.getItem("token")
     const dataMe = await getCurrentInfoUser()
 
     const postBuyContent = {
@@ -46,7 +51,8 @@ export async function createBuy({supplier_id, listProducts}) {
     const response = await fetch(`http://localhost:8000/buys`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(postBuyContent)
     })
@@ -59,6 +65,7 @@ export async function createBuy({supplier_id, listProducts}) {
 }
 
 export async function updateBuy({buy_id, supplier_id, listProducts}) {
+    const token = sessionStorage.getItem("token")
     const dataMe = await getCurrentInfoUser()
 
     const putBuyContent = {
@@ -72,7 +79,8 @@ export async function updateBuy({buy_id, supplier_id, listProducts}) {
     const response = await fetch(`http://localhost:8000/buys/${buy_id}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(putBuyContent)
     })
@@ -85,10 +93,12 @@ export async function updateBuy({buy_id, supplier_id, listProducts}) {
 }
 
 export async function deleteBuy(buy_id) {
+    const token = sessionStorage.getItem("token")
     const response = await fetch(`http://localhost:8000/buys/${buy_id}`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         }
     })
 

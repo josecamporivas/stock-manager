@@ -35,6 +35,7 @@ export async function getSalesStats(year = new Date().getFullYear()) {
 }
 
 export async function createSale({client_id, products}) {
+    const token = sessionStorage.getItem("token")
     const dataMe = await getCurrentInfoUser()
 
     const postSaleContent = {
@@ -48,7 +49,8 @@ export async function createSale({client_id, products}) {
     const response = await fetch(`http://localhost:8000/invoices`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(postSaleContent)
     })
@@ -61,6 +63,7 @@ export async function createSale({client_id, products}) {
 }
 
 export async function updateSale({invoice_id, client_id, products}) {
+    const token = sessionStorage.getItem("token")
     const dataMe = await getCurrentInfoUser()
 
     const putSaleContent = {
@@ -74,7 +77,8 @@ export async function updateSale({invoice_id, client_id, products}) {
     const response = await fetch(`http://localhost:8000/invoices/${invoice_id}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(putSaleContent)
     })
