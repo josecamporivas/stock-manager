@@ -8,6 +8,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Box, Button, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Logout } from "@mui/icons-material";
 
 const OPTIONS_SIDEBAR = [
     {
@@ -50,6 +51,11 @@ export default function Sidebar() {
         setOpen(newOpen);
     };
 
+    const handleLogout = () => {
+        sessionStorage.removeItem('token')
+        navigate('/login')
+    }
+
     const DrawerList = (
       <Box sx={{ width: 250 }} role="presentation" >
         <List>
@@ -72,6 +78,14 @@ export default function Sidebar() {
         <>
             <Drawer open={open} onClose={toggleDrawer(false)} >
                 {DrawerList}
+                <ListItem>
+                    <ListItemButton onClick={handleLogout}>
+                        <ListItemIcon>
+                            <Logout />
+                        </ListItemIcon>
+                        <ListItemText primary="Cerrar sesión" />
+                    </ListItemButton>
+                </ListItem>
             </Drawer>
             <Button onClick={toggleDrawer(true)}><MenuIcon /></Button>
         </>

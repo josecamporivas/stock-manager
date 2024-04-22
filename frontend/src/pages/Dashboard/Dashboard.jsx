@@ -5,12 +5,15 @@ import { getBuysStats } from "../../utils/queries/buys";
 import { useEffect, useState } from "react";
 import ChartStats from "../../components/ChartStats/ChartStats";
 import { getSalesStats } from "../../utils/queries/sales";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
     const [buysStats, setBuysStats] = useState([])
     const [salesStats, setSalesStats] = useState([])
     const [statsYear, setStatsYear] = useState(2023)
     const YEARS = [2021, 2022, 2023, 2024]
+
+    const navigate = useNavigate()
 
     const fetchStats = async () => {
         const dataBuyStats = await getBuysStats(statsYear)
@@ -27,6 +30,10 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
+        if (sessionStorage.getItem('token') === null){
+            navigate('/login')
+        } 
+
         fetchStats()
     }, [statsYear])
 

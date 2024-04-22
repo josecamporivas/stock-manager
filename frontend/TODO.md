@@ -6,5 +6,6 @@
 - [ ] Generar factura con cada venta
 - [ ] Crear archivo requirements.txt for FastAPI backend
 
+- [x] Añadir boton Logout
 - [x] FIX: inicio de sesión con usuarios eliminados (desactivados) 
 - [x] Añadir boton "Ver más" a los productos
