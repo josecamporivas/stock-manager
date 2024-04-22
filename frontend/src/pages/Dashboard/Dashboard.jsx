@@ -1,6 +1,5 @@
 import { Box, Container, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import { LineChart } from "@mui/x-charts";
 import { getBuysStats } from "../../utils/queries/buys";
 import { useEffect, useState } from "react";
 import ChartStats from "../../components/ChartStats/ChartStats";
@@ -19,10 +18,20 @@ export default function Dashboard() {
         const dataBuyStats = await getBuysStats(statsYear)
         const dataSaleStats = await getSalesStats(statsYear)
 
-        console.log(dataBuyStats, dataSaleStats)
+        if(dataBuyStats.error){
+            console.log(dataBuyStats.error)
+        }else{
+            setBuysStats(dataBuyStats)
+        }
 
-        setBuysStats(dataBuyStats)
-        setSalesStats(dataSaleStats)
+        if(dataSaleStats.error){
+            console.log(dataSaleStats.error)
+        } else {
+            setSalesStats(dataSaleStats)
+        }
+
+/*         dataBuyStats.error & setBuysStats([]) || setBuysStats(dataBuyStats)
+        dataSaleStats.error & setSalesStats([]) || setSalesStats(dataSaleStats) */
     }
 
     const handleInputChange = (e) => {
@@ -36,6 +45,27 @@ export default function Dashboard() {
 
         fetchStats()
     }, [statsYear])
+
+    const setiesDataToParse = () => {
+        const seriesData = []
+
+        if(buysStats.length > 0){
+            seriesData.push({
+                data: buysStats.map(buy => buy.total_cost_buys),
+                label: 'Compras'
+            })
+        }
+
+        if(salesStats.length > 0){
+            seriesData.push({
+                data: salesStats.map(sale => sale.total_cost_sales),
+                label: 'Ventas'
+            })
+        }
+
+        console.log(seriesData)
+        return seriesData
+    }
 
     return (
         <>
@@ -59,14 +89,8 @@ export default function Dashboard() {
                             ))}
                         </Select>
                     </FormControl>
-                    <ChartStats xAxisData={buysStats.map(buy => buy.month)}   //TODO: Fix cero value line in the middle of the chart
-                        seriesData={[{
-                            data: buysStats.map(buy => buy.total_cost_buys),
-                            label: 'Compras'
-                        }, {
-                            data: salesStats.map(sale => sale.total_cost_sales),
-                            label: 'Ventas'
-                        }]} />
+                    <ChartStats  //TODO: Fix cero value line in the middle of the chart
+                        seriesData={setiesDataToParse()} />
                 </Box>
             </Container>
         </>
