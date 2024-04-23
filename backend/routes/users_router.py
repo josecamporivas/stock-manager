@@ -68,5 +68,5 @@ async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token = create_token(user.user_id)
+    access_token = create_token(user.user_id, user.role)
     return access_token

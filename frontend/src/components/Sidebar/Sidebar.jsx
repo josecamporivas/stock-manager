@@ -14,38 +14,45 @@ const OPTIONS_SIDEBAR = [
     {
         name: "Tu perfil",
         icon: <PersonIcon />,
-        path: "/profile"
+        path: "/profile",
+        roles: ["ADMIN", "BUY_MANAGER", "SELL_MANAGER"]
     },
     {
         name: "Página principal",
         icon: <HomeIcon />,
-        path: "/dashboard"
+        path: "/dashboard",
+        roles: ["ADMIN", "BUY_MANAGER", "SELL_MANAGER"]
     },
     {
         name: "Gestión usuarios",
         icon: <PeopleOutlineIcon />,
-        path: "/users"
+        path: "/users",
+        roles: ["ADMIN"]
     },
     {
         name: "Gestión compras",
         icon: <ShoppingCartIcon />,
-        path: "/buys"
+        path: "/buys",
+        roles: ["ADMIN", "BUY_MANAGER"]
     },
     {
         name: "Gestión productos",
         icon: <StoreIcon />,
-        path: "/products"
+        path: "/products",
+        roles: ["ADMIN", "BUY_MANAGER"]
     },
     {
         name: "Gestión ventas",
         icon: <SellIcon />,
-        path: "/sales"
+        path: "/sales",
+        roles: ["ADMIN", "SELL_MANAGER"]
     }
 ]
 
 export default function Sidebar() {
     const [open, setOpen] = useState(false)
     const navigate = useNavigate()
+    const role = sessionStorage.getItem('role')
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
@@ -59,16 +66,20 @@ export default function Sidebar() {
     const DrawerList = (
       <Box sx={{ width: 250 }} role="presentation" >
         <List>
-            {OPTIONS_SIDEBAR.map((option) => (
-                <ListItem disablePadding key={option.name}>
-                    <ListItemButton onClick={() => navigate(option.path)}>
-                        <ListItemIcon>
-                            {option.icon}
-                        </ListItemIcon>
-                        <ListItemText primary={option.name} />
-                    </ListItemButton>
-                </ListItem>
-            ))}
+            {OPTIONS_SIDEBAR.map((option) => {
+                if(option.roles.includes(role)){
+                    return (
+                        <ListItem disablePadding key={option.name}>
+                            <ListItemButton onClick={() => navigate(option.path)}>
+                                <ListItemIcon>
+                                    {option.icon}
+                                </ListItemIcon>
+                                <ListItemText primary={option.name} />
+                            </ListItemButton>
+                        </ListItem>
+                    )
+                }
+            })}
         </List>
         <Divider />
       </Box>

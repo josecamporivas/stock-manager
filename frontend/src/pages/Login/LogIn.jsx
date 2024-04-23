@@ -28,6 +28,7 @@ export default function LogIn() {
             return
         }
         sessionStorage.setItem('token', result.access_token)
+        sessionStorage.setItem('role', result.role_user)
         navigate('/dashboard')
     }
 
