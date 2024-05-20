@@ -38,7 +38,7 @@ function Row({invoice, lines, setSales, handleDelete}) {
           <TableCell align="center">{invoice.user_name}</TableCell>
           <TableCell align="center">{total_price} €</TableCell>
           <TableCell align="center">
-            <Box sx={{display: 'flex', justifyContent: 'center'}}>  {/* TODO: handle update and delete sale */}
+            <Box sx={{display: 'flex', justifyContent: 'center'}}>
               <ModalCreateUpdateSale mode='update' setSales={setSales} saleInfoData={saleInfoData} />
               <IconButton color='error' onClick={handleDelete(invoice.invoice_id)}><DeleteIcon /></IconButton>
             </Box> 

@@ -23,7 +23,7 @@ export default function LogIn() {
         
         if(result.error) {
             console.log(result.error)
-            //TODO : Mostrar mensaje de error
+            //TODO : handle error
 
             return
         }

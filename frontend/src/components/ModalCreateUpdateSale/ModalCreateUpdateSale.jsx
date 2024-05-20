@@ -63,7 +63,7 @@ export default function ModalCreateUpdateSale({styleContainer, mode = 'create', 
         setOpen(false)
 
         if(mode === 'create') {
-            setBuyInfo(buyInfoDefault)
+            setSaleInfo(saleInfoDefault)
         }
     }
 
