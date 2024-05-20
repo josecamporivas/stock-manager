@@ -2,9 +2,9 @@
 - [ ] Añadir validación a los campos de los formularios
 - [ ] Mostrar las funcionalidades según el tipo de usuario que se conecte
 - [ ] Mostrar notificaciones
-- [ ] Generar factura con cada venta
-- [ ] Crear archivo requirements.txt for FastAPI backend
 
+- [x] Crear archivo requirements.txt for FastAPI backend
+- [x] Generar factura con cada venta
 - [x] Gestionar bien los inicios de sesión para hacer acciones sobre el backend
 - [x] Añadir boton Logout
 - [x] FIX: inicio de sesión con usuarios eliminados (desactivados) 
