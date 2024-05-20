@@ -5,6 +5,7 @@ from fastapi import HTTPException
 from schemas.Invoice import InvoiceCreate
 from schemas.InvoiceLine import InvoiceLineCreate
 from utils.db import connect
+from utils.pdf_generator import generate_invoice_pdf
 
 
 class Invoices:
@@ -100,7 +101,10 @@ class Invoices:
                     cursor.execute('UPDATE products SET stock = stock - %s WHERE product_id = %s',
                                    (line.amount, line.product_id))
                 connection.commit()
-                return await Invoices.get(invoice_id)
+
+                created_invoice = await Invoices.get(invoice_id)
+                generate_invoice_pdf(created_invoice)
+                return created_invoice
 
     @staticmethod
     async def update(id_invoice: int, data: InvoiceCreate, lines: list[InvoiceLineCreate]):
