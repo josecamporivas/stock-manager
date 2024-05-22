@@ -96,6 +96,7 @@ class Invoices:
                     if float(stock) - float(line.amount) <= float(unit_limit):
                         cursor.execute('INSERT INTO notifications (date, product_id, message) VALUES ($s, %s, %s)', (
                             datetime.now(),
+                            line.product_id,
                             f'Stock of product {name}[id: {line.product_id}] is below the limit [{unit_limit}]'))
 
                     cursor.execute('UPDATE products SET stock = stock - %s WHERE product_id = %s',
