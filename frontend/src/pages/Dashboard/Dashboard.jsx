@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ChartStats from "../../components/ChartStats/ChartStats";
 import { getSalesStats } from "../../utils/queries/sales";
 import { useNavigate } from "react-router-dom";
+import NotificationButton from "../../components/NotificationButton/NotificationButton";
 
 export default function Dashboard() {
     const [buysStats, setBuysStats] = useState([])
@@ -29,9 +30,6 @@ export default function Dashboard() {
         } else {
             setSalesStats(dataSaleStats)
         }
-
-/*         dataBuyStats.error & setBuysStats([]) || setBuysStats(dataBuyStats)
-        dataSaleStats.error & setSalesStats([]) || setSalesStats(dataSaleStats) */
     }
 
     const handleInputChange = (e) => {
@@ -41,7 +39,9 @@ export default function Dashboard() {
     useEffect(() => {
         if (sessionStorage.getItem('token') === null){
             navigate('/login')
-        } 
+        }
+
+        fetch
 
         fetchStats()
     }, [statsYear])
@@ -70,6 +70,7 @@ export default function Dashboard() {
     return (
         <>
             <Sidebar />
+            <NotificationButton />
             <Container maxWidth="md" sx={{marginTop: "10px"}}>
                 <Box sx={{textAlign: "center"}}>
                     <h1 className="title color-primary">DASHBOARD</h1>
