@@ -30,30 +30,21 @@ async def get_one(id: int):
     return user
 
 @router.post("/", response_model=User, status_code=201)
-# async def create(current_user: Annotated[User, Depends(get_current_user)], user: UserCreate):
 async def create(current_user: Annotated[User, Depends(get_current_user)], user: UserCreate):
-    #    if current_user.role != "ADMIN":
-    #        raise HTTPException(status_code=403, detail="Forbidden")
     if current_user.role != "ADMIN":
         raise bad_role_exception
     return await Users.create(user)
 
 
 @router.put("/{id}", response_model=User)
-# async def update(current_user: Annotated[User, Depends(get_current_user)], id: int, user: UserCreate):
 async def update(current_user: Annotated[User, Depends(get_current_user)], id: int, user: UserCreate):
-    #     if current_user.role != "ADMIN":
-    #         raise HTTPException(status_code=403, detail="Forbidden")
     if current_user.role != "ADMIN":
         raise bad_role_exception
     return await Users.update(id, user)
 
 
 @router.delete("/{id}", status_code=204)
-# async def delete(current_user: Annotated[User, Depends(get_current_user)], id: int):
 async def delete(current_user: Annotated[User, Depends(get_current_user)], id: int):
-    # if current_user.role != "ADMIN":
-    # raise HTTPException(status_code=403, detail="Forbidden")
     if current_user.role != "ADMIN":
         raise bad_role_exception
     await Users.delete(id)
