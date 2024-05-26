@@ -75,36 +75,17 @@ INSERT INTO `supplier_provides_product` VALUES
 
 INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
 ('2023-10-23 19:45:23', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.')),
-('2023-10-25 06:32:14', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.')),
-('2023-10-28 14:20:19', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.')),
-('2023-11-04 14:04:58', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.')),
-('2023-11-07 17:05:54', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.'));
+('2023-10-25 06:32:14', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.'));
 
 INSERT INTO `buy_contains_product` VALUES
-((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Manzana'), 1.00, 100),
-((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Pera'), 0.75, 75),
-((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Plátano'), 1.50, 50),
-((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Naranja'), 1.25, 125),
-((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Uva'), 2.00, 150),
-((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Fresa'), 2.50, 100),
-((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Sandía'), 3.00, 50),
-((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Melón'), 3.50, 75),
-((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Pimiento'), 1.00, 100),
-((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Tomate'), 0.75, 75),
-((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Pepino'), 1.50, 50),
-((select buy_id from buys where date = '2023-10-28 14:20:19'), (select product_id from products where name = 'Lechuga'), 1.25, 125),
-((select buy_id from buys where date = '2023-10-28 14:20:19'), (select product_id from products where name = 'Espinaca'), 2.00, 150),
-((select buy_id from buys where date = '2023-10-28 14:20:19'), (select product_id from products where name = 'Coliflor'), 2.50, 100),
-((select buy_id from buys where date = '2023-10-28 14:20:19'), (select product_id from products where name = 'Brócoli'), 3.00, 50),
-((select buy_id from buys where date = '2023-10-28 14:20:19'), (select product_id from products where name = 'Zanahoria'), 3.50, 75),
-((select buy_id from buys where date = '2023-10-28 14:20:19'), (select product_id from products where name = 'Patata'), 1.00, 100),
-((select buy_id from buys where date = '2023-10-28 14:20:19'), (select product_id from products where name = 'Cebolla'), 0.75, 75),
-((select buy_id from buys where date = '2023-11-04 14:04:58'), (select product_id from products where name = 'Ajo'), 1.50, 50),
-((select buy_id from buys where date = '2023-11-04 14:04:58'), (select product_id from products where name = 'Calabaza'), 1.25, 125),
-((select buy_id from buys where date = '2023-11-04 14:04:58'), (select product_id from products where name = 'Calabacín'), 2.00, 150),
-((select buy_id from buys where date = '2023-11-04 14:04:58'), (select product_id from products where name = 'Berenjena'), 2.50, 100),
-((select buy_id from buys where date = '2023-11-07 17:05:54'), (select product_id from products where name = 'Champiñón'), 3.00, 50),
-((select buy_id from buys where date = '2023-11-07 17:05:54'), (select product_id from products where name = 'Seta'), 3.50, 75);
+((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Manzana'), 1.00, 10),
+((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Pera'), 0.75, 7),
+((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Plátano'), 1.50, 5),
+((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Naranja'), 1.25, 3),
+((select buy_id from buys where date = '2023-10-23 19:45:23'), (select product_id from products where name = 'Uva'), 2.00, 5),
+((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Fresa'), 2.50, 2),
+((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Sandía'), 3.00, 2),
+((select buy_id from buys where date = '2023-10-25 06:32:14'), (select product_id from products where name = 'Melón'), 3.50, 3);
 
 -- Products from Carnicería S.L.
 INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES 
@@ -135,23 +116,12 @@ INSERT INTO `supplier_provides_product` VALUES
 ((select product_id from products where name = 'Carne de buey'), (select supplier_id from suppliers where name = 'Carnicería S.L.'));
 
 INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
-('2023-10-23 19:45:24', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Carnicería S.L.')),
-('2023-10-25 06:32:15', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Carnicería S.L.')),
-('2023-10-28 14:20:12', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Carnicería S.L.')),
-('2023-11-04 14:05:58', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Carnicería S.L.'));
+('2023-10-23 19:45:24', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Carnicería S.L.'));
 
 INSERT INTO `buy_contains_product` VALUES
-((select buy_id from buys where date = '2023-10-23 19:45:24'), (select product_id from products where name = 'Carne de vacuno'), 5.00, 100),
-((select buy_id from buys where date = '2023-10-23 19:45:24'), (select product_id from products where name = 'Carne de cerdo'), 4.00, 75),
-((select buy_id from buys where date = '2023-10-23 19:45:24'), (select product_id from products where name = 'Carne de pollo'), 3.00, 50),
-((select buy_id from buys where date = '2023-10-25 06:32:15'), (select product_id from products where name = 'Carne de cordero'), 6.00, 125),
-((select buy_id from buys where date = '2023-10-25 06:32:15'), (select product_id from products where name = 'Carne de conejo'), 7.00, 150),
-((select buy_id from buys where date = '2023-10-28 14:20:12'), (select product_id from products where name = 'Carne de pavo'), 8.00, 100),
-((select buy_id from buys where date = '2023-10-28 14:20:12'), (select product_id from products where name = 'Carne de pato'), 9.00, 50),
-((select buy_id from buys where date = '2023-10-28 14:20:12'), (select product_id from products where name = 'Carne de avestruz'), 10.00, 75),
-((select buy_id from buys where date = '2023-11-04 14:05:58'), (select product_id from products where name = 'Carne de caballo'), 11.00, 100),
-((select buy_id from buys where date = '2023-11-04 14:05:58'), (select product_id from products where name = 'Carne de buey'), 12.00, 125);
-
+((select buy_id from buys where date = '2023-10-23 19:45:24'), (select product_id from products where name = 'Carne de vacuno'), 5.00, 1),
+((select buy_id from buys where date = '2023-10-23 19:45:24'), (select product_id from products where name = 'Carne de cerdo'), 4.00, 3),
+((select buy_id from buys where date = '2023-10-23 19:45:24'), (select product_id from products where name = 'Carne de pollo'), 3.00, 2);
 -- Products from Pescadería S.L.
 INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES
 ("Bacalao", "Bacalao de origen noruego", 10.00, 5.00, 100, (select category_id from product_categories where category_name = 'Carne y pescado'), (select unit_measure_id from unit_measures where abbreviation = 'kg'), 10),
@@ -180,25 +150,6 @@ INSERT INTO `supplier_provides_product` VALUES
 ((select product_id from products where name = 'Anchoa'), (select supplier_id from suppliers where name = 'Pescadería S.L.')),
 ((select product_id from products where name = 'Pulpo'), (select supplier_id from suppliers where name = 'Pescadería S.L.'));
 
-INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
-('2023-10-23 19:45:26', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Pescadería S.L.')),
-('2023-10-25 06:32:16', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Pescadería S.L.')),
-('2023-10-28 14:20:21', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Pescadería S.L.')),
-('2023-11-04 14:04:59', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Pescadería S.L.'));
-
-INSERT INTO `buy_contains_product` VALUES
-((select buy_id from buys where date = '2023-10-23 19:45:26'), (select product_id from products where name = 'Bacalao'), 5.00, 100),
-((select buy_id from buys where date = '2023-10-23 19:45:26'), (select product_id from products where name = 'Salmón'), 4.00, 75),
-((select buy_id from buys where date = '2023-10-23 19:45:26'), (select product_id from products where name = 'Atún'), 3.00, 50),
-((select buy_id from buys where date = '2023-10-25 06:32:16'), (select product_id from products where name = 'Merluza'), 6.00, 125),
-((select buy_id from buys where date = '2023-10-25 06:32:16'), (select product_id from products where name = 'Lubina'), 7.00, 150),
-((select buy_id from buys where date = '2023-10-28 14:20:21'), (select product_id from products where name = 'Dorada'), 8.00, 100),
-((select buy_id from buys where date = '2023-10-28 14:20:21'), (select product_id from products where name = 'Sardina'), 9.00, 50),
-((select buy_id from buys where date = '2023-11-04 14:04:59'), (select product_id from products where name = 'Boquerón'), 10.00, 75),
-((select buy_id from buys where date = '2023-11-04 14:04:59'), (select product_id from products where name = 'Anchoa'), 11.00, 100),
-((select buy_id from buys where date = '2023-11-04 14:04:59'), (select product_id from products where name = 'Pulpo'), 12.00, 125);
-
-
 -- Products from Panadería S.L.
 INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES
 ("Barra de pan artesano", "Barra de pan artesano con masa madre", 1.00, 0.50, 100, (select category_id from product_categories where category_name = 'Pan y bollos'), (select unit_measure_id from unit_measures where abbreviation = 'ud'), 10),
@@ -218,20 +169,6 @@ INSERT INTO `supplier_provides_product` VALUES
 ((select product_id from products where name = 'Pan de espelta'), (select supplier_id from suppliers where name = 'Panadería S.L.')),
 ((select product_id from products where name = 'Pan integral'), (select supplier_id from suppliers where name = 'Panadería S.L.')),
 ((select product_id from products where name = 'Pan de maíz'), (select supplier_id from suppliers where name = 'Panadería S.L.'));
-
-INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
-('2023-10-23 19:45:13', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.')),
-('2023-10-25 06:33:14', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.')),
-('2023-10-29 14:20:19', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.')),
-('2023-11-04 15:04:58', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.'));
-
-INSERT INTO `buy_contains_product` VALUES
-((select buy_id from buys where date = '2023-10-23 19:45:13'), (select product_id from products where name = 'Barra de pan artesano'), 0.50, 100),
-((select buy_id from buys where date = '2023-10-25 06:33:14'), (select product_id from products where name = 'Chapata'), 0.75, 75),
-((select buy_id from buys where date = '2023-10-29 14:20:19'), (select product_id from products where name = 'Barra de pan normal'), 1.00, 50),
-((select buy_id from buys where date = '2023-10-29 14:20:19'), (select product_id from products where name = 'Pan de espelta'), 1.25, 125),
-((select buy_id from buys where date = '2023-11-04 15:04:58'), (select product_id from products where name = 'Pan integral'), 1.50, 150),
-((select buy_id from buys where date = '2023-11-04 15:04:58'), (select product_id from products where name = 'Pan de maíz'), 1.75, 100);
 
 -- Products from Droguería S.L.
 INSERT INTO `products`(`name`, `description`, `price`, `cost`, `stock`, `category_id`, `unit_measure_id`, `unit_limit`) VALUES
@@ -262,17 +199,120 @@ INSERT INTO `supplier_provides_product` VALUES
 ((select product_id from products where name = 'Fregasuelos'), (select supplier_id from suppliers where name = 'Droguería S.L.'));
 
 INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
-('2023-10-23 19:35:23', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Droguería S.L.')),
-('2023-10-25 06:31:14', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Droguería S.L.'));
+('2023-11-04 14:05:59', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.'));
 
 INSERT INTO `buy_contains_product` VALUES
-((select buy_id from buys where date = '2023-10-23 19:35:23'), (select product_id from products where name = 'Detergente'), 5.00, 100),
-((select buy_id from buys where date = '2023-10-23 19:35:23'), (select product_id from products where name = 'Suavizante'), 4.00, 75),
-((select buy_id from buys where date = '2023-10-23 19:35:23'), (select product_id from products where name = 'Lejía'), 3.00, 50),
-((select buy_id from buys where date = '2023-10-25 06:31:14'), (select product_id from products where name = 'Limpiador'), 6.00, 125),
-((select buy_id from buys where date = '2023-10-25 06:31:14'), (select product_id from products where name = 'Desinfectante'), 7.00, 150),
-((select buy_id from buys where date = '2023-10-25 06:31:14'), (select product_id from products where name = 'Ambientador'), 8.00, 100),
-((select buy_id from buys where date = '2023-10-25 06:31:14'), (select product_id from products where name = 'Insecticida'), 9.00, 50),
-((select buy_id from buys where date = '2023-10-25 06:31:14'), (select product_id from products where name = 'Repelente'), 10.00, 75),
-((select buy_id from buys where date = '2023-10-25 06:31:14'), (select product_id from products where name = 'Cera'), 11.00, 100),
-((select buy_id from buys where date = '2023-10-25 06:31:14'), (select product_id from products where name = 'Fregasuelos'), 12.00, 125);
+((select buy_id from buys where date = '2023-11-04 14:05:59'), (select product_id from products where name = 'Manzana'), 1.00, 2),
+((select buy_id from buys where date = '2023-11-04 14:05:59'), (select product_id from products where name = 'Pera'), 0.75, 3),
+((select buy_id from buys where date = '2023-11-04 14:05:59'), (select product_id from products where name = 'Plátano'), 1.50, 5),
+((select buy_id from buys where date = '2023-11-04 14:05:59'), (select product_id from products where name = 'Naranja'), 1.25, 2),
+((select buy_id from buys where date = '2023-11-04 14:05:59'), (select product_id from products where name = 'Uva'), 2.00, 3);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2023-12-07 17:05:55', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2023-12-07 17:05:55'), (select product_id from products where name = 'Barra de pan artesano'), 0.50, 4),
+((select buy_id from buys where date = '2023-12-07 17:05:55'), (select product_id from products where name = 'Chapata'), 0.75, 6),
+((select buy_id from buys where date = '2023-12-07 17:05:55'), (select product_id from products where name = 'Barra de pan normal'), 1.00, 1),
+((select buy_id from buys where date = '2023-12-07 17:05:55'), (select product_id from products where name = 'Pan de maíz'), 1.75, 2);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2024-01-02 17:05:56', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Droguería S.L.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2024-01-02 17:05:56'), (select product_id from products where name = 'Detergente'), 5.00, 3),
+((select buy_id from buys where date = '2024-01-02 17:05:56'), (select product_id from products where name = 'Suavizante'), 4.00, 2),
+((select buy_id from buys where date = '2024-01-02 17:05:56'), (select product_id from products where name = 'Lejía'), 3.00, 3);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2024-02-05 17:05:57', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2024-02-05 17:05:57'), (select product_id from products where name = 'Manzana'), 1.00, 3),
+((select buy_id from buys where date = '2024-02-05 17:05:57'), (select product_id from products where name = 'Pera'), 0.75, 2),
+((select buy_id from buys where date = '2024-02-05 17:05:57'), (select product_id from products where name = 'Plátano'), 1.50, 3),
+((select buy_id from buys where date = '2024-02-05 17:05:57'), (select product_id from products where name = 'Naranja'), 1.25, 3),
+((select buy_id from buys where date = '2024-02-05 17:05:57'), (select product_id from products where name = 'Uva'), 2.00, 3);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2024-03-08 17:05:58', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2024-03-08 17:05:58'), (select product_id from products where name = 'Barra de pan artesano'), 0.50, 3),
+((select buy_id from buys where date = '2024-03-08 17:05:58'), (select product_id from products where name = 'Chapata'), 0.75, 2),
+((select buy_id from buys where date = '2024-03-08 17:05:58'), (select product_id from products where name = 'Barra de pan normal'), 1.00, 3),
+((select buy_id from buys where date = '2024-03-08 17:05:58'), (select product_id from products where name = 'Pan de espelta'), 1.25, 3),
+((select buy_id from buys where date = '2024-03-08 17:05:58'), (select product_id from products where name = 'Pan integral'), 1.50, 3),
+((select buy_id from buys where date = '2024-03-08 17:05:58'), (select product_id from products where name = 'Pan de maíz'), 1.75, 3);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2024-04-11 17:05:59', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Droguería S.L.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2024-04-11 17:05:59'), (select product_id from products where name = 'Detergente'), 5.00, 3),
+((select buy_id from buys where date = '2024-04-11 17:05:59'), (select product_id from products where name = 'Suavizante'), 4.00, 2),
+((select buy_id from buys where date = '2024-04-11 17:05:59'), (select product_id from products where name = 'Lejía'), 3.00, 3);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2024-05-14 17:05:55', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2024-05-14 17:05:55'), (select product_id from products where name = 'Manzana'), 1.00, 3),
+((select buy_id from buys where date = '2024-05-14 17:05:55'), (select product_id from products where name = 'Pera'), 0.75, 2),
+((select buy_id from buys where date = '2024-05-14 17:05:55'), (select product_id from products where name = 'Plátano'), 1.50, 3),
+((select buy_id from buys where date = '2024-05-14 17:05:55'), (select product_id from products where name = 'Naranja'), 1.25, 3),
+((select buy_id from buys where date = '2024-05-14 17:05:55'), (select product_id from products where name = 'Uva'), 2.00, 3);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2023-08-23 19:35:23', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Droguería S.L.')),
+('2023-09-25 06:31:14', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Droguería S.L.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2023-08-23 19:35:23'), (select product_id from products where name = 'Detergente'), 5.00, 1),
+((select buy_id from buys where date = '2023-08-23 19:35:23'), (select product_id from products where name = 'Suavizante'), 4.00, 1),
+((select buy_id from buys where date = '2023-08-23 19:35:23'), (select product_id from products where name = 'Lejía'), 3.00, 1),
+((select buy_id from buys where date = '2023-09-25 06:31:14'), (select product_id from products where name = 'Limpiador'), 6.00, 2),
+((select buy_id from buys where date = '2023-09-25 06:31:14'), (select product_id from products where name = 'Desinfectante'), 7.00, 2),
+((select buy_id from buys where date = '2023-09-25 06:31:14'), (select product_id from products where name = 'Ambientador'), 8.00, 1);
+
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2023-06-23 19:45:13', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.')),
+('2023-07-25 06:33:14', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2023-06-23 19:45:13'), (select product_id from products where name = 'Barra de pan artesano'), 0.50, 10),
+((select buy_id from buys where date = '2023-06-23 19:45:13'), (select product_id from products where name = 'Chapata'), 0.75, 10),
+((select buy_id from buys where date = '2023-07-25 06:33:14'), (select product_id from products where name = 'Barra de pan normal'), 1.00, 7),
+((select buy_id from buys where date = '2023-07-25 06:33:14'), (select product_id from products where name = 'Pan de espelta'), 1.25, 10);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2023-04-23 19:45:13', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.')),
+('2023-05-25 06:33:14', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Frutas y Verduras S.A.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2023-04-23 19:45:13'), (select product_id from products where name = 'Manzana'), 1.00, 10),
+((select buy_id from buys where date = '2023-04-23 19:45:13'), (select product_id from products where name = 'Pera'), 0.75, 10),
+((select buy_id from buys where date = '2023-05-25 06:33:14'), (select product_id from products where name = 'Plátano'), 1.50, 4),
+((select buy_id from buys where date = '2023-05-25 06:33:14'), (select product_id from products where name = 'Naranja'), 1.25, 4),
+((select buy_id from buys where date = '2023-05-25 06:33:14'), (select product_id from products where name = 'Uva'), 2.00, 3);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2023-02-23 19:45:13', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Droguería S.L.')),
+('2023-03-25 06:33:14', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Droguería S.L.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2023-02-23 19:45:13'), (select product_id from products where name = 'Detergente'), 5.00, 2),
+((select buy_id from buys where date = '2023-02-23 19:45:13'), (select product_id from products where name = 'Suavizante'), 4.00, 2),
+((select buy_id from buys where date = '2023-03-25 06:33:14'), (select product_id from products where name = 'Lejía'), 3.00, 3),
+((select buy_id from buys where date = '2023-03-25 06:33:14'), (select product_id from products where name = 'Limpiador'), 6.00, 1);
+
+INSERT INTO `buys` (`date`, `user_id`, `supplier_id`) VALUES
+('2023-01-23 19:45:13', (select user_id from users where dni = '12345678A'), (select supplier_id from suppliers where name = 'Panadería S.L.'));
+
+INSERT INTO `buy_contains_product` VALUES
+((select buy_id from buys where date = '2023-01-23 19:45:13'), (select product_id from products where name = 'Pan de espelta'), 1.25, 3),
+((select buy_id from buys where date = '2023-01-23 19:45:13'), (select product_id from products where name = 'Pan integral'), 1.50, 4),
+((select buy_id from buys where date = '2023-01-23 19:45:13'), (select product_id from products where name = 'Pan de maíz'), 1.75, 2);
+

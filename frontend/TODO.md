@@ -1,7 +1,7 @@
 - [ ] Mostrar mensajes de error
 - [ ] Añadir validación a los campos de los formularios
-- [ ] Añadir datos a la BD para simular una situación real
 
+- [x] Añadir datos a la BD para simular una situación real
 - [x] Mostrar notificaciones
 - [x] Mostrar las funcionalidades según el tipo de usuario que se conecte
 - [x] Crear archivo requirements.txt for FastAPI backend
