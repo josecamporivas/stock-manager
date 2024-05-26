@@ -11,7 +11,7 @@ export default function Dashboard() {
     const [buysStats, setBuysStats] = useState([])
     const [salesStats, setSalesStats] = useState([])
     const [statsYear, setStatsYear] = useState(2023)
-    const YEARS = [2021, 2022, 2023, 2024]
+    const YEARS = [2023, 2024]
 
     const navigate = useNavigate()
 
@@ -49,17 +49,17 @@ export default function Dashboard() {
     const setiesDataToParse = () => {
         const seriesData = []
 
-        if(buysStats.length > 0){
-            seriesData.push({
-                data: buysStats.map(buy => buy.total_cost_buys),
-                label: 'Compras'
-            })
-        }
-
         if(salesStats.length > 0){
             seriesData.push({
                 data: salesStats.map(sale => sale.total_cost_sales),
                 label: 'Ventas'
+            })
+        }
+
+        if(buysStats.length > 0){
+            seriesData.push({
+                data: buysStats.map(buy => buy.total_cost_buys),
+                label: 'Compras'
             })
         }
 
@@ -90,7 +90,7 @@ export default function Dashboard() {
                             ))}
                         </Select>
                     </FormControl>
-                    <ChartStats  //TODO: Fix cero value line in the middle of the chart
+                    <ChartStats
                         seriesData={setiesDataToParse()} />
                 </Box>
             </Container>
