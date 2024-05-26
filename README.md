@@ -6,20 +6,48 @@ Full-stack app built in:
 
 # SET UP
 
-### Database
-<!-- TODO -->
+## Database
+Start a local MySQL server and run the SQL scripts in this order:
 
-### Backend
-`cd backend/`
+- `database.sql`
+- `example_data_buys.sql`
+- `example_data_invoices.sql`
 
-`pip install fastapi`
+## Backend
+Access to the backend project
 
-`pip install "uvicorn[standard]"`
+```bash
+cd backend/
+```
 
-`pip install pymysql`
+Then you have to install all dependencies
 
-`uvicorn main:app --reload`
+```bash
+pip install -r requirements.txt
+```
 
+And run the server
 
-### Frontend
-<!-- TODO -->
+```bash
+uvicorn main:app --reload
+```
+
+## Frontend
+Once you make the previous steps, access the React app folder
+
+```bash
+cd frontend/
+```
+
+Install the dependencies
+
+```bash
+npm install
+```
+
+Finally, run the frontend application
+
+```bash
+npm run dev
+```
+
