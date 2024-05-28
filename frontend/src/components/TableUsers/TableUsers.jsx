@@ -3,7 +3,7 @@ import { Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, Ta
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModalCreateUpdateUser from "../ModalCreateUpdateUser/ModalCreateUpdateUser";
 
-export default function TableUsers({users, handleDelete, setUsers}) {
+export default function TableUsers({users, handleDelete, setUsers, showSnackbarMessage}) {
     return (
         <TableContainer component={Paper}>
             <Table>
@@ -29,7 +29,10 @@ export default function TableUsers({users, handleDelete, setUsers}) {
                         <TableCell align="center">{user.role}</TableCell>
                         <TableCell align="center">
                             <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                                <ModalCreateUpdateUser userDataProps={user} mode='update' setUsers={setUsers}/>
+                                <ModalCreateUpdateUser userDataProps={user}
+                                                        mode='update'
+                                                        setUsers={setUsers}
+                                                        showSnackbarMessage={showSnackbarMessage} />
                                 <IconButton color='error' onClick={handleDelete(user.user_id)}><DeleteIcon /></IconButton>
                             </Box> 
                         </TableCell>

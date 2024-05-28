@@ -4,12 +4,18 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
 import { getToken } from "../../utils/queries/logIn";
 import { useNavigate } from "react-router-dom";
+import SnackbarMessage from "../../components/SnackbarMessage/SnackbarMessage";
 
 export default function LogIn() {
     const [showPassword, setShowPassword] = useState(false)
     const [credentials, setCredentials] = useState({
         username: "",
         password: ""
+    })
+    const [snackbarMessage, setSnackbarMessage] = useState({
+        message: '',
+        severity: '',
+        open: false
     })
 
     const navigate = useNavigate()
@@ -18,13 +24,14 @@ export default function LogIn() {
 
     const handleLogIn = async (e) => {
         e.preventDefault()
-        console.log(credentials)
         const result = await getToken(credentials)
         
         if(result.error) {
-            console.log(result.error)
-            //TODO : handle error
-
+            setSnackbarMessage({
+                message: result.error,
+                severity: 'error',
+                open: true
+            })
             return
         }
         sessionStorage.setItem('token', result.access_token)
@@ -40,8 +47,20 @@ export default function LogIn() {
         setCredentials({...credentials, password: e.target.value})
     }
 
+    const handleCloseSnackbar = (event, reason) =>{
+        if (reason === 'clickaway') {
+            return
+        }
+        setSnackbarMessage({...snackbarMessage, open: false})
+    }
+
     return (
         <Container maxWidth="md" sx={{marginTop: "200px"}}>
+            <SnackbarMessage open={snackbarMessage.open}
+                            handleCloseSnackbar={handleCloseSnackbar}
+                            message={snackbarMessage.message}
+                            severity={snackbarMessage.severity} />
+
             <Box sx={{textAlign: "center"}}>
                 <h1 className="title color-primary">INICIO SESIÓN</h1>
             </Box>

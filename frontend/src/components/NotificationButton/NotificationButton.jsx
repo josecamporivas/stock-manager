@@ -15,9 +15,7 @@ export default function NotificationButton() {
     const fetchNotifications = async () => {
         const dataNotifications = await getUnreadNotifications()
 
-        if(dataNotifications.error){
-            console.log(dataNotifications.error)
-        } else {
+        if(!dataNotifications.error){
             setNotifications(dataNotifications)
         }
     }
@@ -26,7 +24,7 @@ export default function NotificationButton() {
         const result = await markNotificationAsRead(notificationId)
 
         if(result.error){
-            console.log(result.error)
+            return
         }
 
         const notificationIndex = notifications.findIndex(notification => notification.notification_id === notificationId)

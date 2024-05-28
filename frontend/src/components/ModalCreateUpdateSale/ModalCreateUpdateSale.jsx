@@ -29,7 +29,7 @@ const saleInfoDefault = {
     products: [{name: '', amount: '', price: ''}]
 }
 
-export default function ModalCreateUpdateSale({styleContainer, mode = 'create', saleInfoData = saleInfoDefault, setSales}){
+export default function ModalCreateUpdateSale({styleContainer, mode = 'create', saleInfoData = saleInfoDefault, setSales, showSnackbarMessage}){
     const [open, setOpen] = useState(false)
     const [saleInfo, setSaleInfo] = useState(saleInfoData)
     const [products, setProducts] = useState([])
@@ -38,16 +38,16 @@ export default function ModalCreateUpdateSale({styleContainer, mode = 'create', 
     const fetchProductsIdAndName = async () => {
         const data = await getProductsIdNameCostPrice()
         if(data.error) {
-          console.log(data.error)
+          showSnackbarMessage(data.error, 'error')
           return
         }
         setProducts(data)
     }
 
     const fetchClients = async () => {
-        const data = await getAllClients()
+        const data = await getAllClients({size: 20})
         if(data.error) {
-            console.log(data.error)
+            showSnackbarMessage(data.error, 'error')
             return
         }
         setClients(data)
@@ -90,7 +90,7 @@ export default function ModalCreateUpdateSale({styleContainer, mode = 'create', 
     const handleSubmitCreate = async (client_id, products) => {
         const result = await createSale({client_id, products})
         if(result.error) {
-          //TODO: handle error
+          showSnackbarMessage(result.error, 'error')
           return
         }
     
@@ -100,7 +100,7 @@ export default function ModalCreateUpdateSale({styleContainer, mode = 'create', 
     const handleSubmitUpdate = async (invoice_id, client_id, products) => {
         const result = await updateSale({invoice_id, client_id, products})
         if(result.error) {
-          //TODO: handle error
+          showSnackbarMessage(result.error, 'error')
           return
         }
     
@@ -124,18 +124,19 @@ export default function ModalCreateUpdateSale({styleContainer, mode = 'create', 
         })
 
         if(saleInfo.invoice.client_id === null || products.length === 0) {
-            // TODO: handle error: Not all fields are filled
+            showSnackbarMessage('No todos los campos están cubiertos', 'error')
             return 
         }
 
         if(mode === 'create') {
             handleSubmitCreate(saleInfo.invoice.client_id, products)
+            showSnackbarMessage('Venta creada', 'success')
             return
         }
 
         if (mode === 'update') {
-            console.log(saleInfo)
             handleSubmitUpdate(saleInfo.invoice.invoice_id, saleInfo.invoice.client_id, products)
+            showSnackbarMessage('Venta actualizada', 'success')
             return
         }
     }

@@ -27,7 +27,6 @@ export default function ModalCreateSupplier() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(supplierInfo)
         const data = await createSupplier(supplierInfo)
         if(data.error) {
             console.log(data.error)

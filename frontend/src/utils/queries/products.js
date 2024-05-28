@@ -1,15 +1,21 @@
 export async function getAllProducts({page = 1, size = 10} = {}) {
     const token = sessionStorage.getItem('token')
-    const response = await fetch(`http://localhost:8000/products?page=${page}&size=${size}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${token}`
-        }
-    })
+    
+    let response
+    try{
+        response = await fetch(`http://localhost:8000/products?page=${page}&size=${size}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            }
+        })
+    }catch(error){
+        return {error: "Error al obtener los productos"}
+    }
 
     if(!response.ok){
-        return {error: response.statusText}
+        return {error: "Error al obtener los productos"}
     }
 
     const data = await response.json()
@@ -18,15 +24,21 @@ export async function getAllProducts({page = 1, size = 10} = {}) {
 
 
 export async function getProductsIdNameCostPrice() {
-    const response = await fetch(`http://localhost:8000/products/id-name-cost-price`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
+    let response
+    
+    try{
+        response = await fetch(`http://localhost:8000/products/id-name-cost-price`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }catch(error){
+        return {error: "Error al obtener los productos"}
+    }
 
     if(!response.ok){
-        return {error: response.statusText}
+        return {error: 'Error al obtener los productos'}
     }
 
     const data = await response.json()
@@ -68,17 +80,27 @@ export async function getAllCategories() {
 
 export async function createProduct(productData) {
     const token = sessionStorage.getItem('token')
-    const response = await fetch(`http://localhost:8000/products/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(productData)
-    })
+    let response
+    try{
+        response = await fetch(`http://localhost:8000/products/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(productData)
+        })
+    }catch(error){
+        return {error: "Error al crear el producto"}
+    }
 
     if(!response.ok){
-        return {error: response.statusText}
+        try{
+            const data = await response.json()
+            return {error: data.detail || "Error al crear el producto"}
+        }catch(error){
+            return {error: response.statusText}
+        }
     }
 
     const data = await response.json()
@@ -87,17 +109,28 @@ export async function createProduct(productData) {
 
 export async function updateProduct(productData) {
     const token = sessionStorage.getItem('token')
-    const response = await fetch(`http://localhost:8000/products/${productData.product_id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(productData)
-    })
+    
+    let response
+    try{
+        response = await fetch(`http://localhost:8000/products/${productData.product_id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(productData)
+        })
+    }catch(error){
+        return {error: "Error al actualizar el producto"}
+    }
 
     if(!response.ok){
-        return {error: response.statusText}
+        try{
+            const data = await response.json()
+            return {error: data.detail || "Error al actualizar el producto"}
+        }catch(error){
+            return {error: response.statusText}
+        }
     }
 
     const data = await response.json()

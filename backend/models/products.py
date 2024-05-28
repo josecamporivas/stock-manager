@@ -1,3 +1,6 @@
+from fastapi import HTTPException
+from pymysql import IntegrityError
+
 from schemas.Product import ProductCreate
 from utils.db import connect
 
@@ -55,22 +58,36 @@ class Products:
 
     @staticmethod
     async def create(data: ProductCreate):
+        if data.name == "" or data.price == 0 or data.cost == 0:
+            raise HTTPException(status_code=400, detail="Faltan campos por cubrir")
+
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('INSERT INTO products (name, description, price, cost, stock, category_id, unit_measure_id, unit_limit) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
-                               (data.name, data.description, data.price, data.cost, data.stock, data.category_id, data.unit_measure_id, data.unit_limit))
-                connection.commit()
-                product_id = cursor.lastrowid
-                return await Products.get(product_id)
+                try:
+                    cursor.execute('INSERT INTO products (name, description, price, cost, stock, category_id, unit_measure_id, unit_limit) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)',
+                                   (data.name, data.description, data.price, data.cost, data.stock, data.category_id, data.unit_measure_id, data.unit_limit))
+                    connection.commit()
+                    product_id = cursor.lastrowid
+                    return await Products.get(product_id)
+                except IntegrityError as e:
+                    connection.rollback()
+                    raise HTTPException(status_code=400, detail="Un valor introducido ya existe")
 
     @staticmethod
     async def update(id_product: int, data: ProductCreate):
+        if data.name == "" or data.price == 0 or data.cost == 0:
+            raise HTTPException(status_code=400, detail="Faltan campos por cubrir")
+
         with connect() as connection:
             with connection.cursor() as cursor:
-                cursor.execute('UPDATE products SET name=%s, description=%s, price=%s, cost=%s, stock=%s, category_id=%s, unit_measure_id=%s, unit_limit=%s WHERE product_id=%s',
-                               (data.name, data.description, data.price, data.cost, data.stock, data.category_id, data.unit_measure_id, data.unit_limit, id_product))
-                connection.commit()
-                return await Products.get(id_product)
+                try:
+                    cursor.execute('UPDATE products SET name=%s, description=%s, price=%s, cost=%s, stock=%s, category_id=%s, unit_measure_id=%s, unit_limit=%s WHERE product_id=%s',
+                                   (data.name, data.description, data.price, data.cost, data.stock, data.category_id, data.unit_measure_id, data.unit_limit, id_product))
+                    connection.commit()
+                    return await Products.get(id_product)
+                except IntegrityError as e:
+                    connection.rollback()
+                    raise HTTPException(status_code=400, detail="Un valor introducido ya existe")
 
     @staticmethod
     async def delete(id_product: int):

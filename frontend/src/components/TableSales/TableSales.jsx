@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { format } from '../../utils/dates/dateFormatter'
 import ModalCreateUpdateSale from '../ModalCreateUpdateSale/ModalCreateUpdateSale';
 
-function Row({invoice, lines, setSales, handleDelete}) {
+function Row({invoice, lines, setSales, handleDelete, showSnackbarMessage}) {
     const [open, setOpen] = useState(false);
   
     const total_price = lines.reduce((acc, line) => acc + line.price * line.amount, 0)
@@ -17,7 +17,7 @@ function Row({invoice, lines, setSales, handleDelete}) {
       invoice,
       products: lines.map(line => ({name: line.product.name, price: line.price, amount: line.amount}))
     }
-  
+
     return (
       <>
         <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
@@ -39,7 +39,7 @@ function Row({invoice, lines, setSales, handleDelete}) {
           <TableCell align="center">{total_price} €</TableCell>
           <TableCell align="center">
             <Box sx={{display: 'flex', justifyContent: 'center'}}>
-              <ModalCreateUpdateSale mode='update' setSales={setSales} saleInfoData={saleInfoData} />
+              <ModalCreateUpdateSale mode='update' setSales={setSales} saleInfoData={saleInfoData} showSnackbarMessage={showSnackbarMessage} />
               <IconButton color='error' onClick={handleDelete(invoice.invoice_id)}><DeleteIcon /></IconButton>
             </Box> 
           </TableCell>
@@ -83,7 +83,7 @@ function Row({invoice, lines, setSales, handleDelete}) {
     );
   }
   
-  export default function TableSales({sales, setSales, handleDelete}) {
+  export default function TableSales({sales, setSales, handleDelete, showSnackbarMessage}) {
   
       return (
           <TableContainer component={Paper}>
@@ -101,7 +101,9 @@ function Row({invoice, lines, setSales, handleDelete}) {
               </TableHead>
               <TableBody>
               {sales.map(({invoice, lines}) => (
-                  <Row key={invoice.invoice_id} invoice={invoice} lines={lines} handleDelete={handleDelete} setSales={setSales} />
+                  <Row key={invoice.invoice_id} invoice={invoice} lines={lines} handleDelete={handleDelete}
+                        setSales={setSales}
+                        showSnackbarMessage={showSnackbarMessage}  />
               ))}
               </TableBody>
           </Table>

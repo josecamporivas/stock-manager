@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { format } from '../../utils/dates/dateFormatter'
 import ModalCreateUpdateBuy from '../ModalCreateUpdateBuy/ModalCreateUpdateBuy';
 
-function Row({buy, products, handleDelete, setBuys}) {
+function Row({buy, products, handleDelete, setBuys, showSnackbarMessage}) {
   const [open, setOpen] = useState(false);
 
   const total_cost = products.reduce((acc, product) => acc + product.cost * product.amount, 0)
@@ -39,7 +39,10 @@ function Row({buy, products, handleDelete, setBuys}) {
         <TableCell align="center">{total_cost} €</TableCell>
         <TableCell align="center">
           <Box sx={{display: 'flex', justifyContent: 'center'}}>
-            <ModalCreateUpdateBuy buyInfoData={buyInfoData} setBuys={setBuys} mode='update'/>
+            <ModalCreateUpdateBuy buyInfoData={buyInfoData}
+                                  setBuys={setBuys}
+                                  mode='update'
+                                  showSnackbarMessage={showSnackbarMessage} />
             <IconButton color='error' onClick={handleDelete(buy.buy_id)}><DeleteIcon /></IconButton>
           </Box> 
         </TableCell>
@@ -83,7 +86,7 @@ function Row({buy, products, handleDelete, setBuys}) {
   );
 }
 
-export default function TableBuys({buys, handleDelete, setBuys}) {
+export default function TableBuys({buys, handleDelete, setBuys, showSnackbarMessage}) {
 
     return (
         <TableContainer component={Paper}>
@@ -101,7 +104,7 @@ export default function TableBuys({buys, handleDelete, setBuys}) {
             </TableHead>
             <TableBody>
             {buys.map(({buy, products}) => (
-                <Row key={buy.buy_id} buy={buy} products={products} handleDelete={handleDelete} setBuys={setBuys} />
+                <Row key={buy.buy_id} buy={buy} products={products} handleDelete={handleDelete} setBuys={setBuys} showSnackbarMessage={showSnackbarMessage} />
             ))}
             </TableBody>
         </Table>

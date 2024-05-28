@@ -27,7 +27,6 @@ export default function ModalCreateClient(){
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(clientInfo)
         const data = await createClient(clientInfo)
         if(data.error) {
             console.log(data.error)

@@ -34,7 +34,7 @@ const buyInfoDefault = {
   products: [{name: '', amount: '', cost: ''}]
 }
 
-export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyInfoDefault, setBuys, mode = 'create'}) {
+export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyInfoDefault, setBuys, mode = 'create', showSnackbarMessage}) {
   const [open, setOpen] = useState(false);
   const [suppliers, setSuppliers] = useState([])
   const [products, setProducts] = useState([])
@@ -43,7 +43,7 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
   const fetchAllSuppliers = async () => {
     const data = await getAllSuppliers()
     if(data.error) {
-      console.log(data.error)
+      showSnackbarMessage(data.error, 'error')
       return
     }
     setSuppliers(data)
@@ -52,7 +52,7 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
   const fetchProductsIdAndName = async () => {
     const data = await getProductsIdNameCostPrice()
     if(data.error) {
-      console.log(data.error)
+      showSnackbarMessage(data.error, 'error')
       return
     }
     setProducts(data)
@@ -98,7 +98,7 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
   const handleSubmitUpdate = async (buy_id, supplier_id, products) => {
     const result = await updateBuy({buy_id, supplier_id, listProducts: products})
     if(result.error) {
-      //TODO: handle error
+      showSnackbarMessage(result.error, 'error')
       return
     }
 
@@ -113,7 +113,7 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
   const handleSubmitCreate = async (supplier_id, products) => {
     const result = await createBuy({supplier_id, listProducts: products})
     if(result.error) {
-      //TODO: handle error
+      showSnackbarMessage(result.error, 'error')
       return
     }
 
@@ -132,17 +132,19 @@ export default function ModalCreateUpdateBuy({styleContainer, buyInfoData = buyI
     })
 
     if(buyInfo.buy.supplier_id === null || products.length === 0) {
-      // TODO: handle error: Not all fields are filled
+      showSnackbarMessage('No todos los campos están completos', 'error')
       return
     }
 
     if(mode === 'create') {
       handleSubmitCreate(buyInfo.buy.supplier_id, products)
+      showSnackbarMessage('Compra creada', 'success')
       return
     }
 
     if (mode === 'update') {
       handleSubmitUpdate(buyInfo.buy.buy_id, buyInfo.buy.supplier_id, products)
+      showSnackbarMessage('Compra modificada', 'success')
       return
     }
   }

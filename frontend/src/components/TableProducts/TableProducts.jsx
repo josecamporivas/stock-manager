@@ -3,9 +3,9 @@ import ModalCreateUpdateProduct from "../ModalCreateUpdateProduct/ModalCreateUpd
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function TableProducts({products, setProducts, handleDelete}) {
+export default function TableProducts({products, setProducts, handleDelete, showSnackbarMessage}) {
     return (
-        <TableContainer component={Paper}>     {/* TODO: falta mostrar la descripcion. Supongo que haré un desplegable hacia abajo  */}
+        <TableContainer component={Paper}>
             <Table>
                 <TableHead>
                 <TableRow sx={{backgroundColor: '#DDD'}}>
@@ -29,7 +29,7 @@ export default function TableProducts({products, setProducts, handleDelete}) {
                         <TableCell align="center">{product.unit_limit} {product.unit.abbreviation}</TableCell>
                         <TableCell align="center">
                             <Box sx={{display: 'flex', justifyContent: 'center'}}>
-                                <ModalCreateUpdateProduct productDataProps={product} mode='update' setProducts={setProducts}/>
+                                <ModalCreateUpdateProduct productDataProps={product} mode='update' setProducts={setProducts} showSnackbarMessage={showSnackbarMessage}/>
                                 <IconButton color='error' onClick={handleDelete(product.product_id)}><DeleteIcon /></IconButton>
                             </Box> 
                         </TableCell>

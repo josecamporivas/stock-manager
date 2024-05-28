@@ -32,7 +32,7 @@ const productDataDefault = {
     }
 }
 
-export default function ModalCreateUpdateProduct({productDataProps = productDataDefault, mode, setProducts, styleContainer}) {
+export default function ModalCreateUpdateProduct({productDataProps = productDataDefault, mode, setProducts, styleContainer, showSnackbarMessage}) {
     const [open, setOpen] = useState(false)
     const [productData, setProductData] = useState(productDataProps)
     const [unitMeasures, setUnitMeasures] = useState([])
@@ -41,36 +41,23 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
     const handleOpen = async () => {
         Promise.all([getAllUnitMeasures(), getAllCategories()]).then(([units, categs]) => {
             if(units.error || categs.error) {
-                //TODO: handle error (i think its better to do it separately, by the moment stays like this)
+                showSnackbarMessage('Error al cargar los datos','error')
                 return
             }
             setOpen(true)
             setUnitMeasures(units)
             setCategories(categs)
         })
-/*         const units = await getAllUnitMeasures()
-        const categs = await getAllCategories()
-        if(units.error || categs.error) {
-            //TODO: handle error (i think its better to do it separately, by the moment stays like this)
-            return
-        }
-        setOpen(true)
-        setUnitMeasures(units)
-        setCategories(categs) */
     }
     const handleClose = () => setOpen(false)
 
     const handleInputChange = (e) => {
         if(e.target.name === 'unit_id') {
-            //TODO
-            console.log(e.target.value)
             setProductData({...productData, unit: {unit_measure_id: e.target.value}})
             return
         }
 
         if(e.target.name === 'category_id') {
-            //TODO
-            console.log(e.target.value)
             setProductData({...productData, category: {category_id: e.target.value}})
             return
         }
@@ -83,7 +70,7 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
 
         const result = await createProduct(productDataCreate)
         if(result.error) {
-            //TODO: handle error
+            showSnackbarMessage(result.error,'error')
             return
         }
 
@@ -95,7 +82,7 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
 
         const result = await updateProduct(productDataUpdate)
         if(result.error) {
-            //TODO: handle error
+            showSnackbarMessage(result.error,'error')
             return
         }
 
@@ -107,11 +94,13 @@ export default function ModalCreateUpdateProduct({productDataProps = productData
 
         if(mode === 'create') {
             await createProductHandler()
+            showSnackbarMessage('Producto creado','success')
             return
         }
 
         if(mode === 'update') {
             await updateProductHandler()
+            showSnackbarMessage('Producto actualizado','success')
             return
         }
     }

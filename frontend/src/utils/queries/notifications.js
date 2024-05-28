@@ -18,8 +18,6 @@ export async function getUnreadNotifications() {
 export async function markNotificationAsRead(notificationId) {
     const token = sessionStorage.getItem("token")
 
-    console.log(`http://localhost:8000/notifications/${notificationId}`)
-
     const response = await fetch(`http://localhost:8000/notifications/${notificationId}`, {
         method: 'PUT',
         headers: {

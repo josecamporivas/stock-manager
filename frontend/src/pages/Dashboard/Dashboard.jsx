@@ -19,15 +19,11 @@ export default function Dashboard() {
         const dataBuyStats = await getBuysStats(statsYear)
         const dataSaleStats = await getSalesStats(statsYear)
 
-        if(dataBuyStats.error){
-            console.log(dataBuyStats.error)
-        }else{
+        if(!dataBuyStats.error){
             setBuysStats(dataBuyStats)
         }
 
-        if(dataSaleStats.error){
-            console.log(dataSaleStats.error)
-        } else {
+        if(!dataSaleStats.error){
             setSalesStats(dataSaleStats)
         }
     }
@@ -63,7 +59,6 @@ export default function Dashboard() {
             })
         }
 
-        console.log(seriesData)
         return seriesData
     }
 

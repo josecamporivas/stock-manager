@@ -1,4 +1,4 @@
-import { Alert, Box, Button, Container, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Snackbar, TextField } from "@mui/material";
+import { Box, Button, Container, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,9 @@ import { getCurrentInfoUser, updateUser } from "../../utils/queries/user";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import EditIcon from '@mui/icons-material/Edit';
 import SendIcon from '@mui/icons-material/Send';
-import CheckIcon from '@mui/icons-material/Check';
 
 import './Profile.css'
+import SnackbarMessage from "../../components/SnackbarMessage/SnackbarMessage";
 
 export default function Profile() {
     const navigate = useNavigate()
@@ -23,17 +23,24 @@ export default function Profile() {
     })
     const [showPassword, setShowPassword] = useState(false)
     const [editMode, setEditMode] = useState(false)
-    const [snackbarOpen, setSnackbarOpen] = useState(false)
+    const [snackbarMessage, setSnackbarMessage] = useState({
+        message: '',
+        severity: '',
+        open: false
+    })
 
     const fetchUserData = async () => {
         const data = await getCurrentInfoUser()
         if(data.error) {
-            //TODO: handle error
+            setSnackbarMessage({
+                message: data.error,
+                severity: 'error',
+                open: true
+            })
             return
         }
         data.password = ''
 
-        console.log(data)
         setUserData(data)
     }
 
@@ -52,7 +59,7 @@ export default function Profile() {
         if (reason === 'clickaway') {
             return
         }
-        setSnackbarOpen(false)
+        setSnackbarMessage({...snackbarMessage, open: false})
     }
 
     const handleInputChange = (e) => {
@@ -61,36 +68,34 @@ export default function Profile() {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(userData)
 
         const result = await updateUser(userData)
         if(result.error) {
-            //TODO: handle error
-            /* for example:
-                - username already exists
-                - email already exists
-                - dni already exists
-            */
+            setSnackbarMessage({
+                message: result.error,
+                severity: 'error',
+                open: true
+            })
+
             return
         }
         result.password = ''
         setUserData(result)
-        setSnackbarOpen(true)
+        setSnackbarMessage({
+            message: 'Usuario actualizado correctamente',
+            severity: 'success',
+            open: true
+        })
     }
 
     return (
         <>
             <Sidebar />     
-            <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={3000}
-                onClose={handleCloseSnackbar}
-                anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            >
-                <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" variant="filled" >
-                    Datos actualizados!
-                </Alert>
-            </Snackbar>
+            <SnackbarMessage open={snackbarMessage.open}
+                            handleCloseSnackbar={handleCloseSnackbar}
+                            message={snackbarMessage.message}
+                            severity={snackbarMessage.severity} />
+            
             <Container maxWidth="md">
                 <Box sx={{textAlign: "center", marginBottom: '15px'}}>
                     <h1 className="title title-profile color-primary">MI PERFIL</h1>

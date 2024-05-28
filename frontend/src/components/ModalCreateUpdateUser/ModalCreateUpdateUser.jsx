@@ -28,7 +28,7 @@ const userDataDefault = {
     role: ''
 }
 
-export default function ModalCreateUpdateUser({styleContainer, setUsers, mode, userDataProps = userDataDefault}) {
+export default function ModalCreateUpdateUser({styleContainer, setUsers, mode, userDataProps = userDataDefault, showSnackbarMessage}) {
     const [open, setOpen] = useState(false)
     const [userData, setUserData] = useState(userDataProps)
     const [showPassword, setShowPassword] = useState(false)
@@ -43,7 +43,7 @@ export default function ModalCreateUpdateUser({styleContainer, setUsers, mode, u
     const createUserHandler = async () => {
         const result = await createUser(userData)
         if(result.error) {
-            //TODO: handle error
+            showSnackbarMessage(result.error, 'error')
             return
         }
 
@@ -54,7 +54,7 @@ export default function ModalCreateUpdateUser({styleContainer, setUsers, mode, u
         const result = await updateUser(userData)
         
         if(result.error) {
-            //TODO: handle error
+            showSnackbarMessage(result.error, 'error')
             return
         }
  
@@ -66,10 +66,14 @@ export default function ModalCreateUpdateUser({styleContainer, setUsers, mode, u
 
         if (mode === 'create') {
             await createUserHandler()
+            showSnackbarMessage('Usuario creado', 'success')
+            return
         }
         
         if (mode === 'update') {
             await updateUserHandler()
+            showSnackbarMessage('Usuario modificado', 'success')
+            return
         }
     }
     return (

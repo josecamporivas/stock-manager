@@ -5,15 +5,21 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteUser, getAllUsers } from "../../utils/queries/user";
 import ModalCreateUpdateUser from "../../components/ModalCreateUpdateUser/ModalCreateUpdateUser";
+import SnackbarMessage from "../../components/SnackbarMessage/SnackbarMessage";
 
 export default function Users() {
     const [users, setUsers] = useState([])
     const navigate = useNavigate()
+    const [snackbarMessage, setSnackbarMessage] = useState({
+        message: '',
+        severity: '',
+        open: false
+    })
 
     const fetchAllUsers = async () => {
         const data = await getAllUsers()
         if(data.error) {
-            //TODO: handle error
+            showSnackbarMessage(data.error, 'error')
             return
         }
         setUsers(data.map(user => ({...user, password: ''})))
@@ -33,7 +39,11 @@ export default function Users() {
         const result = await deleteUser(user_id)
 
         if(result.error) {
-            //TODO: handle error
+            setSnackbarMessage({
+                message: result.error,
+                severity: 'error',
+                open: true
+            })
             return
         }
 
@@ -41,17 +51,38 @@ export default function Users() {
         setUsers(newUsers) 
     }
 
+    const handleCloseSnackbar = (event, reason) =>{
+        if (reason === 'clickaway') {
+            return
+        }
+        setSnackbarMessage({...snackbarMessage, open: false})
+    }
+
+    const showSnackbarMessage = (message, severity) => {
+        setSnackbarMessage({
+            message,
+            severity,
+            open: true
+        })
+    }
 
     return (
         <>
             <Sidebar />
+            <SnackbarMessage open={snackbarMessage.open}
+                            handleCloseSnackbar={handleCloseSnackbar}
+                            message={snackbarMessage.message}
+                            severity={snackbarMessage.severity} />
             <Container maxWidth="md">
                 <Box sx={{textAlign: "center"}}>
                     <h1 className="title color-primary">USUARIOS</h1>
-                    <ModalCreateUpdateUser setUsers={setUsers} mode='create' styleContainer={{marginBottom: 10}} />
+                    <ModalCreateUpdateUser setUsers={setUsers}
+                                            mode='create'
+                                            styleContainer={{marginBottom: 10}}
+                                            showSnackbarMessage={showSnackbarMessage} />
                 </Box>
                 <Box sx={{marginBottom: 1}}>
-                    <TableUsers users={users} handleDelete={handleDelete} setUsers={setUsers} />
+                    <TableUsers users={users} handleDelete={handleDelete} setUsers={setUsers} showSnackbarMessage={showSnackbarMessage} />
                 </Box>
             </Container>
         </>

@@ -5,16 +5,22 @@ export async function getAllSuppliers({page = 1, size = 10} = {}) {
         return {error: "No hay token"}
     }
 
-    const response = await fetch(`http://localhost:8000/suppliers/?page=${page}&size=${size}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Basic ${token}`
-        }
-    })
+    let response
+
+    try{
+        response = await fetch(`http://localhost:8000/suppliers/?page=${page}&size=${size}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    }catch(error){
+        return {error: 'Error obteniendo los proveedores'}
+    }
 
     if(!response.ok){
-        return {error: response.statusText}
+        return {error: 'Error obteniendo los proveedores'}
     }
 
     const data = await response.json()
