@@ -12,7 +12,7 @@ import { Logout } from "@mui/icons-material";
 
 const OPTIONS_SIDEBAR = [
     {
-        name: "Tu perfil",
+        name: "Mi perfil",
         icon: <PersonIcon />,
         path: "/profile",
         roles: ["ADMIN", "BUY_MANAGER", "SELL_MANAGER"]

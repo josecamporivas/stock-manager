@@ -57,7 +57,7 @@ function Row({invoice, lines, setSales, handleDelete, showSnackbarMessage}) {
                       <TableCell>Producto</TableCell>
                       <TableCell>Cantidad</TableCell>
                       <TableCell align="right">Precio</TableCell>
-                      <TableCell align="right">Coste total</TableCell>
+                      <TableCell align="right">Precio total</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
