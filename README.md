@@ -1,7 +1,7 @@
 # Stock manager
 Full-stack app built in:
 - **Frontend**: React
-- **Backend**: Python 3.12 + FastAPI + SQLAlchemy
+- **Backend**: Python 3.12 + FastAPI
 - **Database**: MySQL
 
 # SET UP
