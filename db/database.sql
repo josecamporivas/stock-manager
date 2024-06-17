@@ -42,7 +42,8 @@ CREATE TABLE `products` (
   `unit_measure_id` int unsigned NOT NULL,
   `unit_limit` smallint unsigned NOT NULL,
   `disabled` tinyint(1) NOT NULL DEFAULT 0,
-  FOREIGN KEY (`unit_measure_id`) REFERENCES `unit_measures`(`unit_measure_id`)
+  FOREIGN KEY (`unit_measure_id`) REFERENCES `unit_measures`(`unit_measure_id`),
+  FOREIGN KEY (`category_id`) REFERENCES `product_categories`(`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Table structure for table `CLIENTS`
