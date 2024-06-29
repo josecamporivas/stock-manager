@@ -29,10 +29,8 @@ export default function ModalCreateClient(){
         e.preventDefault()
         const data = await createClient(clientInfo)
         if(data.error) {
-            console.log(data.error)
             return
         }
-        console.log(data)
     }
 
     return (

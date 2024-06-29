@@ -55,14 +55,6 @@ class Buys:
 
                 return result
 
-                # cursor.execute('SELECT YEAR(date) as "year", MONTH(date) as "month" FROM buys WHERE YEAR(date) = %s AND disabled=0 GROUP BY MONTH(date)', (year,))
-                # result = cursor.fetchall()
-                #
-                # for item in result:
-                #     cursor.execute('SELECT COUNT(*) as "num_line_buys", SUM(amount * cost) as "total_cost_sales" FROM buy_contains_product JOIN buys ON buy_contains_product.buy_id = buys.buy_id WHERE YEAR(date) = %s AND MONTH(date) = %s', (item['year'], item['month']))
-                #     item.update(cursor.fetchone())
-                # return result
-
     @staticmethod
     async def create(buy: BuyCreate, products: list[BuyContainsProductCreate]):
         with connect() as connection:
@@ -71,7 +63,7 @@ class Buys:
                                (datetime.now(), buy.user_id, buy.supplier_id))
                 connection.commit()
                 buy_id = cursor.lastrowid
-                for product in products:  # Assign products to buy, update stock and supplier_provides_product
+                for product in products:
                     cursor.execute(
                         'INSERT INTO buy_contains_product (buy_id, product_id, cost, amount) VALUES (%s, %s, %s, %s)',
                         (buy_id, product.product_id, product.cost, product.amount))
@@ -86,7 +78,7 @@ class Buys:
 
                 return await Buys.get(buy_id)
 
-    @staticmethod  # TODO: add more fields to the update. Now: user_id, supplier_id, cost (each prod), amount (each prod)
+    @staticmethod
     async def update(id_buy: int, buy: BuyCreate, products: list[BuyContainsProductCreate]):
         with connect() as connection:
             with connection.cursor() as cursor:
@@ -119,7 +111,7 @@ class Buys:
 
                 cursor.execute('SELECT * FROM buy_contains_product WHERE buy_id = %s', (id_buy,))
                 products = cursor.fetchall()
-                for product in products:  # TODO: verify that the product stock is not negative
+                for product in products:
                     cursor.execute('UPDATE products SET stock = stock - %s WHERE product_id = %s',
                                    (product['amount'], product['product_id']))
                 connection.commit()

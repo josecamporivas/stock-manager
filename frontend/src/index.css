@@ -1,16 +1,8 @@
 :root {
   font-family: sans-serif, Arial, Helvetica, system-ui, -apple-system, BlinkMacSystemFont, 'Open Sans';
   background-repeat: no-repeat;
-  /* background-image: linear-gradient(to top, #FDFCFB 70%, #57a8ef71); */
 }
 
-/* @font-face {
-  font-family: "Vercetti Regular";
-  src: url("/fonts/Vercetti-Regular.woff2") format("woff2"),
-       url("/fonts/Vercetti-Regular.woff") format("woff");
-  font-display: swap;
-}
-*/
 @font-face {
   font-family: "Keep calm";
   src: url("/fonts/KeepCalm-Medium.woff2") format("woff2"),

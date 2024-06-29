@@ -10,9 +10,7 @@ from schemas.User import User
 from utils.bcrypt import verify_pass, hash_pass
 from utils.db import connect
 
-# to get a string like this run:
-# openssl rand -hex 32
-SECRET_KEY = "5c81edf1737e29bf36c9455062e894920ddc7760a229120417bf7ef94843c7c6"
+SECRET_KEY = "5c81edf1737e29bf36c9455062e894920ddc7760a229120417bf7ef94843c7c6"  # openssl rand -hex 32
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 1440  # minutes (one day)
 

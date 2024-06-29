@@ -29,10 +29,8 @@ export default function ModalCreateSupplier() {
         e.preventDefault()
         const data = await createSupplier(supplierInfo)
         if(data.error) {
-            console.log(data.error)
             return
         }
-        console.log(data)
     }
 
     return (

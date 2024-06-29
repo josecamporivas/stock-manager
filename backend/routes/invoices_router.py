@@ -37,7 +37,7 @@ async def create(current_user: Annotated[User, Depends(get_current_user)], invoi
         raise bad_role_exception
     return await Invoices.create(invoice, lines)
 
-@router.put("/{id}") # Can update client_id, amount (each) and price (each)
+@router.put("/{id}")
 async def update(current_user: Annotated[User, Depends(get_current_user)], id: int, invoice: InvoiceCreate, lines: list[InvoiceLineCreate]):
     if current_user.role != "ADMIN" and current_user.role != "SELL_MANAGER":
         raise bad_role_exception

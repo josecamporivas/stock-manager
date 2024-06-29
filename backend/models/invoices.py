@@ -74,7 +74,7 @@ class Invoices:
             with connection.cursor() as cursor:
                 cursor.execute('INSERT INTO invoices (date, user_id, client_id) VALUES (%s, %s, %s)',
                                (datetime.now(), data.user_id, data.client_id))
-                # connection.commit()
+
                 invoice_id = cursor.lastrowid
 
                 for i, line in enumerate(lines):
